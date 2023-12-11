@@ -13,7 +13,7 @@ const SliderData = ({ item }) => {
                         {category ? <button className='text-black border-b-4 border-black active:scale-90  flex justify-start items-center gap-2'>shop now <FaArrowRight /></button> : <Link><button className='text-black border-b-4 border-black active:scale-90 flex justify-start items-center gap-2'>shop now <FaArrowRight /></button></Link>}
                     </span>
                 </div>
-                <div className='md:w-[49%] max-h-[400px] w-full flex md:justify-end justify-center items-center overflow-hidden py-2'>
+                <div className='md:w-[49%] max-h-[400px] w-full flex md:justify-end justify-center items-center overflow-hidden py-2 pointer-events-none'>
                     <img className='w-full p-4  object-cover' src={category ? category.image : products.image} alt="" /> 
                 </div>
             </div>
