@@ -10,6 +10,9 @@ const FrankStoreContext = ({ children }) => {
     const axiosrequest = useAxiosrequest()
     const axiosecure = useAxiosSecure()
     const [currentUser,setCurrentUser]=useState(null)
+    // 
+    const [categoryFilter, setCategoryFilter] = useState('all')
+    const [seacrhValue, setSearchValue] = useState('')
     // create new user 
     const createNewUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -90,7 +93,8 @@ const FrankStoreContext = ({ children }) => {
         createNewUser,
         loginuser,
         loginwithGoogle,
-        currentUser
+        currentUser,
+        seacrhValue, setSearchValue,categoryFilter, setCategoryFilter
     }
     return (
         <FrankStoreData.Provider value={contextData}>

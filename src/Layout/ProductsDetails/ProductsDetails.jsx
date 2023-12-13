@@ -9,11 +9,13 @@ import ProductCard from "../Shered/ProductsCard/ProductCard"
 import SectionHeading from "../../Components/SectionHeading/SectionHeading"
 import { FrankStoreData } from "../../Context/FrankStoreContext"
 import useAxiosSecure from "../../Hooks/useAxiosSecure"
+import Swal from "sweetalert2"
 const ProductsDetails = () => {
-  const {currentUser}=useContext(FrankStoreData)
+  const { currentUser } = useContext(FrankStoreData)
   const product = useLoaderData()
   const axiosrequest = useAxiosrequest()
   const axiosecure = useAxiosSecure()
+  const [loading, setloading] = useState(false)
   // console.log(product.data)
   const { brand, category, date, description, price, productImage, productName, quantity, rating, review, totalSold, _id } = product.data
   const [relaventData, setRelaventData] = useState([])
@@ -21,13 +23,32 @@ const ProductsDetails = () => {
   useEffect(() => {
     axiosrequest.get(`/relaventdata?category=${category}`).then((data) => setRelaventData(data.data))
   }, [])
-  const addtoCart = ()=>{
-      const cartData ={
-        user :currentUser.useremail,
-        itemId : _id
+  const addtoCart = () => {
+    setloading(true)
+    if (!currentUser?.useremail) {
+      setloading(false)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "please login first",
+      });
+    }
+    const cartData = {
+      user: currentUser.useremail,
+      itemId: _id
+    }
+    axiosecure.post('/Cart', cartData).then((data) => {
+      setloading(false)
+      if (data.data.msg === 'Item already added') {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "item already aded to cart",
+        });
       }
-      axiosecure.post('/Cart',cartData).then((data)=>console.log(data.data))
-      // console.log(cartData);
+      console.log(data.data)
+    })
+    // console.log(cartData);
   }
   return (
     <>
@@ -50,7 +71,7 @@ const ProductsDetails = () => {
           <p>Brad : <span className="font-bold uppercase">{brand}</span></p>
           <p className="text-sm tracking-[1px] py-2 pb-4">{description}</p>
           <button onClick={addtoCart} className="bg-orange-400 text-white m-2 hover:text-black transition-all hover:bg-opacity-70 hover:scale-110 active:scale-95">
-            Add to cart
+           {loading?'please wait...': 'Add to cart'} 
           </button>
           <button className="bg-orange-600 text-white m-2 hover:text-black transition-all hover:bg-opacity-70 hover:scale-110 active:scale-95">
             buy now

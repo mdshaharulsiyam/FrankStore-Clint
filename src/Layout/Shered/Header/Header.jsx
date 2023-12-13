@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from "react-router-dom"
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom"
 import { IoSearchOutline, IoCartOutline } from "react-icons/io5";
 import './header.css'
 import { useContext, useState } from "react";
@@ -6,11 +6,11 @@ import { FrankStoreData } from "../../../Context/FrankStoreContext";
 import CartItemModal from "../CartItemModal/CartItemModal";
 import useGetCartData from "../../../Hooks/useGetCartData";
 const Header = () => {
-    const { currentUser } = useContext(FrankStoreData)
+    const { seacrhValue, setSearchValue, currentUser } = useContext(FrankStoreData)
     const [isPending, cartData,] = useGetCartData(currentUser?.useremail)
-    console.log(isPending, cartData,);
     const [CartItemShow, setCartItemShow] = useState(false)
     const location = useLocation()
+    const navigate=useNavigate()
     const navlink = <>
         <NavLink to={'/'} className={`text-black menus`}>Home</NavLink>
         <NavLink to={'/about'} className={`text-black menus`}>About</NavLink>
@@ -24,6 +24,11 @@ const Header = () => {
     </>
     const showCartItem = () => {
         setCartItemShow(!CartItemShow)
+    }
+    const search = e => {
+        e.preventDefault()
+        navigate('/products ')
+        setSearchValue(e.target.searchvalue.value)
     }
     return (
         <header className="flex relative flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 sm:py-0 dark:bg-gray-800 dark:border-gray-700">
@@ -65,11 +70,11 @@ const Header = () => {
                 <div className="hidden sm:block">
                     <div className="flex justify-end items-center gap-2">
                         {
-                            location?.pathname !== "/products" && <form>
+                            location?.pathname !== "/products" && <form onSubmit={search}>
                                 <div className="relative z-10 flex space-x-3 bg-white border rounded-lg shadow-lg shadow-gray-100 dark:bg-slate-900 dark:border-gray-700 dark:shadow-gray-900/[.2]">
                                     <div className="flex-[1_0_0%]">
                                         <label for="hs-search-article-1" className="block text-sm text-gray-700 font-medium dark:text-white"><span className="sr-only">What are you looking for?</span></label>
-                                        <input type="email" name="hs-search-article-1" id="hs-search-article-1" className="py-2.5 px-4 block w-full border-transparent rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600" placeholder="Search" />
+                                        <input type="text" name="searchvalue" id="hs-search-article-1" className="py-2.5 px-4 block w-full border-transparent rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600" placeholder="Search" />
                                     </div>
                                     <button className="absolute top-[50%] font-extrabold right-1 active:scale-90 hover:bg-blue-600 hover:bg-opacity-25 -translate-y-[50%] bg-transparent p-2 "><IoSearchOutline /></button>
                                 </div>

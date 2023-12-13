@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import useAxiosrequest from '../../Hooks/useAxiosrequest'
 import ProductCard from '../Shered/ProductsCard/ProductCard'
 import SectionHeading from '../../Components/SectionHeading/SectionHeading'
@@ -7,16 +7,17 @@ import { FaArrowRight, FaSearch } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 import { useLoaderData } from 'react-router-dom'
 import useGetallProducts from '../../Hooks/useGetallProducts'
+import { FrankStoreData } from '../../Context/FrankStoreContext'
 const Products = () => {
     const axiosrequest = useAxiosrequest()
     const [loading, setloading] = useState(true)
     const [categoryData, setCategoryData] = useState([])
     const { data } = useLoaderData()
+    const {seacrhValue, setSearchValue,categoryFilter, setCategoryFilter}=useContext(FrankStoreData)
     // products filter states 
-    const [categoryFilter, setCategoryFilter] = useState('all')
     const [sortBy, setSortby] = useState('none')
     const [sortValue, setSortValue] = useState('none')
-    const [seacrhValue, setSearchValue] = useState('')
+    // const [seacrhValue, setSearchValue] = useState('')
     const [pageNumber, setPageNumber] = useState(0)
     const [itemPerPage, setItemPerPage] = useState(20)
     const totalPages = Math.ceil(data / itemPerPage)
