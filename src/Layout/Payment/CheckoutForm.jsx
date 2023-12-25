@@ -59,6 +59,16 @@ const CheckoutForm = ({ product }) => {
             else {
                 if (paymentIntent.status === 'succeeded') {
                     //upload to backend payment succed
+                    const data = {
+                        useremail: currentUser?.useremail,
+                        itemId : _id,
+                        amount : price,
+                        transitionId : paymentIntent?.id
+                    }
+                    axiosSecure.post('/order',data)
+                    .then((res)=>{
+                        console.log(res.data);
+                    })
                 }
             }
         }

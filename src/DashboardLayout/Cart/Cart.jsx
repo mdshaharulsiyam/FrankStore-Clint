@@ -4,12 +4,17 @@ import useGetCartData from '../../Hooks/useGetCartData'
 import { Link } from 'react-router-dom'
 import { MdOutlineLocalShipping } from 'react-icons/md'
 import { TbListDetails } from "react-icons/tb";
+import useAxiosSecure from '../../Hooks/useAxiosSecure'
 const Cart = () => {
     const { currentUser } = useContext(FrankStoreData)
     const [isPending, cartData, refetch] = useGetCartData(currentUser?.useremail)
-    // useGetCartData
-    const handelProductDetails = (_id) => {
-        navigate(`/productDeails/${_id}`)
+const axiosequre = useAxiosSecure()
+    const removefromCart = (_id) => {
+        // Cart
+        axiosequre.delete(`/Cart?useremail=${currentUser?.useremail}&id=${_id}`)
+        .then((res)=>{
+            console.log(res.data)
+        })
     }
     return (
         <>
@@ -32,7 +37,7 @@ const Cart = () => {
                                     </div>
                                 </div>
                                 <div className="flex text-sm divide-x">
-                                    <button type="button" className="flex items-center px-2 py-1 pl-0 space-x-1  hover:text-red-600 active:scale-95">
+                                    <button onClick={()=>removefromCart(item?.cartData[0]?._id)} type="button" className="flex items-center px-2 py-1 pl-0 space-x-1  hover:text-red-600 active:scale-95">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 h-4 fill-current">
                                             <path d="M96,472a23.82,23.82,0,0,0,23.579,24H392.421A23.82,23.82,0,0,0,416,472V152H96Zm32-288H384V464H128Z"></path>
                                             <rect width="32" height="200" x="168" y="216"></rect>
