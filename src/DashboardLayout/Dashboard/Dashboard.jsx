@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { FrankStoreData } from "../../Context/FrankStoreContext"
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, Outlet } from "react-router-dom"
 import { CgProfile } from "react-icons/cg";
 import { IoCartOutline } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
@@ -28,7 +28,7 @@ const Dashboard = () => {
                 </NavLink>
             </li>
             <li>
-                <NavLink rel="noopener noreferrer" className="flex items-center p-2 space-x-3 rounded-md">
+                <NavLink to={'cart'} className="flex items-center p-2 space-x-3 rounded-md">
                     <HiUserGroup className="text-2xl" />
                     <span>Cart</span>
                 </NavLink>
@@ -61,12 +61,6 @@ const Dashboard = () => {
             <li>
                 <NavLink rel="noopener noreferrer" className="flex items-center p-2 space-x-3 rounded-md">
                     <IoCartOutline className="text-2xl" />
-                    <span>Cart</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink rel="noopener noreferrer" className="flex items-center p-2 space-x-3 rounded-md">
-                    <IoCartOutline className="text-2xl" />
                     <span>users</span>
                 </NavLink>
             </li>
@@ -75,7 +69,7 @@ const Dashboard = () => {
     console.log(currentUser)
 
     return (
-        <div className='text-left grid grid-cols-2 container mx-auto'>
+        <div className='text-left grid grid-cols-4 container mx-auto'>
             <div className="h-full p-3 space-y-2 w-60 dark:bg-gray-900 dark:text-gray-100">
                 <div className="flex items-center p-2 space-x-4">
                     <img src={currentUser?.profileImage} alt="" className="w-12 h-12 rounded-full dark:bg-gray-500" />
@@ -108,6 +102,9 @@ const Dashboard = () => {
                         </li>
                     </ul>
                 </div>
+            </div>
+            <div className="col-span-3">
+                <Outlet/>
             </div>
         </div>
     )

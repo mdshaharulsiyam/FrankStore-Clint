@@ -15,7 +15,7 @@ const ProductCard = ({ item }) => {
             <div id='productContent' className='hidden '>
             <p className='z-10 rounded-lg absolute font-bold bg-black top-2 right-2 p-2 text-white bg-opacity-40'>${price}</p>
                 <h3 className='text-lg py-1 font-semibold text-white z-10 absolute bottom-20'>{productName}</h3>
-                <p className=' py-1 text-white z-10 absolute bottom-14 italic'>brand : {brand}</p>
+                <p className=' py-1 text-white z-10 absolute bottom-14 '>brand : {brand}</p>
                 <p className=' py-1 text-white z-10 absolute bottom-6 text-xs'>description : {description.slice(0,50)}...</p>
             </div>
         </div>

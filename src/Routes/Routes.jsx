@@ -8,8 +8,9 @@ import Products from "../Layout/Products/Products";
 import useAxiosrequest from "../Hooks/useAxiosrequest";
 import ProductsDetails from "../Layout/ProductsDetails/ProductsDetails";
 import Payment from "../Layout/Payment/Payment";
+import Cart from "../DashboardLayout/Cart/Cart";
 const Routes = () => {
-  const axiosrequest =useAxiosrequest()
+  const axiosrequest = useAxiosrequest()
   const router = createBrowserRouter([
     {
       path: "/",
@@ -22,12 +23,12 @@ const Routes = () => {
         {
           path: "/products",
           element: <Products></Products>,
-          loader : ()=> axiosrequest.get('/productCount')
+          loader: () => axiosrequest.get('/productCount')
         },
         {
           path: "/productDeails/:id",
           element: <ProductsDetails></ProductsDetails>,
-          loader : ({params})=> axiosrequest.get(`/productDetails?id=${params.id}`)
+          loader: ({ params }) => axiosrequest.get(`/productDetails?id=${params.id}`)
         },
         {
           path: "/signup",
@@ -36,7 +37,7 @@ const Routes = () => {
         {
           path: "/payment/:id",
           element: <Payment></Payment>,
-          loader : ({params})=> axiosrequest.get(`/productDetails?id=${params.id}`)
+          loader: ({ params }) => axiosrequest.get(`/productDetails?id=${params.id}`)
         },
         {
           path: "/login",
@@ -45,10 +46,13 @@ const Routes = () => {
       ]
     },
     {
-      path : '/dashboard',
-      element : <Dashboard />,
-      children : [
-
+      path: '/dashboard',
+      element: <Dashboard />,
+      children: [
+        {
+          path: 'cart',
+          element : <Cart/>
+        }
       ]
     }
   ]);

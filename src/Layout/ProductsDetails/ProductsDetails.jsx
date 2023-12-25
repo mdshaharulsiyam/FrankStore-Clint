@@ -71,11 +71,13 @@ const ProductsDetails = () => {
           <p>Brad : <span className="font-bold uppercase">{brand}</span></p>
           <p className="text-sm tracking-[1px] py-2 pb-4">{description}</p>
           <button onClick={addtoCart} className="bg-orange-400 text-white m-2 hover:text-black transition-all hover:bg-opacity-70 hover:scale-110 active:scale-95">
-           {loading?'please wait...': 'Add to cart'} 
+            {loading ? 'please wait...' : 'Add to cart'}
           </button>
-          <button className="bg-orange-600 text-white m-2 hover:text-black transition-all hover:bg-opacity-70 hover:scale-110 active:scale-95">
-            buy now
-          </button>
+          <Link to={`/payment/${_id}`}>
+            <button className="bg-orange-600 text-white m-2 hover:text-black transition-all hover:bg-opacity-70 hover:scale-110 active:scale-95">
+              buy now
+            </button>
+          </Link>
           <div className="border-2 p-2 mt-4">
             <div className="flex justify-start items-center gap-3 py-4 border-b-2">
               <FaShippingFast className="text-2xl" />
@@ -87,7 +89,7 @@ const ProductsDetails = () => {
             <div className="flex justify-start items-center gap-3 py-4  ">
               <FaArrowRightArrowLeft className="text-2xl" />
               <span>
-                <h2 className="font-semibold">Return Delivery</h2>
+                <h2 className="font-semibold">Return policy</h2>
                 <p className="text-xs">Free 30 Days Delivery Returns. Details</p>
               </span>
             </div>
