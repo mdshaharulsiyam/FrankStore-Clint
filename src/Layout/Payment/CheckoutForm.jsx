@@ -63,7 +63,8 @@ const CheckoutForm = ({ product }) => {
                         useremail: currentUser?.useremail,
                         itemId : _id,
                         amount : price,
-                        transitionId : paymentIntent?.id
+                        transitionId : paymentIntent?.id,
+                        status : 'pending'
                     }
                     axiosSecure.post('/order',data)
                     .then((res)=>{

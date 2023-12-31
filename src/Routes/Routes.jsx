@@ -9,6 +9,7 @@ import useAxiosrequest from "../Hooks/useAxiosrequest";
 import ProductsDetails from "../Layout/ProductsDetails/ProductsDetails";
 import Payment from "../Layout/Payment/Payment";
 import Cart from "../DashboardLayout/Cart/Cart";
+import Order from "../DashboardLayout/Order/Order";
 const Routes = () => {
   const axiosrequest = useAxiosrequest()
   const router = createBrowserRouter([
@@ -52,7 +53,11 @@ const Routes = () => {
         {
           path: 'cart',
           element : <Cart/>
-        }
+        },
+        {
+          path: 'order',
+          element : <Order/>
+        },
       ]
     }
   ]);
