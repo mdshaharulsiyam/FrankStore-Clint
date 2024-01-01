@@ -6,11 +6,11 @@ import { FrankStoreData } from "../../../Context/FrankStoreContext";
 import CartItemModal from "../CartItemModal/CartItemModal";
 import useGetCartData from "../../../Hooks/useGetCartData";
 const Header = () => {
-    const { seacrhValue, setSearchValue, currentUser } = useContext(FrankStoreData)
-    const [isPending, cartData,] = useGetCartData(currentUser?.useremail)
+    const { seacrhValue, setSearchValue, currentUser, logout } = useContext(FrankStoreData)
+    const [isPending, cartData, refetch] = useGetCartData(currentUser?.useremail)
     const [CartItemShow, setCartItemShow] = useState(false)
     const location = useLocation()
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const navlink = <>
         <NavLink to={'/'} className={`text-black menus`}>Home</NavLink>
         <NavLink to={'/about'} className={`text-black menus`}>About</NavLink>
@@ -19,7 +19,7 @@ const Header = () => {
             currentUser?.useremail && <NavLink to={'/dashboard'} className={`text-black menus`}>Dashboard</NavLink>
         }
         {
-            currentUser?.useremail ? <button className="active:scale-90">Logout</button> : <NavLink to={'/signup'} className={`text-black menus`}>Sign Up</NavLink>
+            currentUser?.useremail ? <button onClick={logout} className="active:scale-90">Logout</button> : <NavLink to={'/signup'} className={`text-black menus`}>Sign Up</NavLink>
         }
     </>
     const showCartItem = () => {
@@ -48,7 +48,9 @@ const Header = () => {
                                     </div>
                                 </form>
                             }
-                            <Link><img className="w-10 h-10 rounded-full" src={currentUser?.profileImage} alt="" /></Link>
+                            {
+                                currentUser?.useremail && <Link><img className="w-10 h-10 rounded-full" src={currentUser?.profileImage} alt="" /></Link>
+                            }
                             <button className="active:scale-90 text-3xl hover:bg-blue-600 hover:bg-opacity-25 bg-transparent p-2 relative"><IoCartOutline />
                                 <span className="absolute -top-2 bg-red-500 rounded-full text-sm p-1 text-white right-0">0</span>
                             </button>
@@ -80,7 +82,10 @@ const Header = () => {
                                 </div>
                             </form>
                         }
-                        <Link><img className="w-10 h-10 rounded-full" src={currentUser?.profileImage} alt="" /></Link>
+                        {
+                            currentUser?.useremail && <Link><img className="w-10 h-10 rounded-full" src={currentUser?.profileImage} alt="" /></Link>
+                        }
+
                         <button onClick={showCartItem} className="active:scale-90 text-3xl hover:bg-blue-600 hover:bg-opacity-25 bg-transparent p-2 relative"><IoCartOutline />
                             <span className="absolute -top-2 bg-red-500 rounded-full text-sm p-1 text-white right-0">{cartData.length}</span>
                         </button>
@@ -88,7 +93,7 @@ const Header = () => {
                 </div>
             </nav>
             {
-                CartItemShow && <CartItemModal cartData={cartData} setCartItemShow={setCartItemShow} />
+                CartItemShow && <CartItemModal cartData={cartData} refetch={refetch} setCartItemShow={setCartItemShow} />
             }
         </header>
     )

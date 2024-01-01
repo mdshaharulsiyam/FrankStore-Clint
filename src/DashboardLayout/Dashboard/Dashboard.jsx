@@ -11,7 +11,7 @@ const Dashboard = () => {
     const userMenu = <>
         <ul className="pt-2 pb-4 space-y-1 text-sm">
             <li className="dark:bg-gray-800 dark:text-gray-50">
-                <NavLink rel="noopener noreferrer" href="#" className="flex items-center p-2 space-x-3 rounded-md">
+                <NavLink to={'profile'} className="flex items-center p-2 space-x-3 rounded-md">
                     <CgProfile className="text-2xl" />
                     <span>Profile</span>
                 </NavLink>
@@ -37,7 +37,7 @@ const Dashboard = () => {
     const adminMenu = <>
         <ul className="pt-2 pb-4 space-y-1 text-sm">
             <li className="dark:bg-gray-800 dark:text-gray-50">
-                <NavLink rel="noopener noreferrer" href="#" className="flex items-center p-2 space-x-3 rounded-md">
+                <NavLink to={'profile'} className="flex items-center p-2 space-x-3 rounded-md">
                     <CgProfile className="text-2xl" />
                     <span>Profile</span>
                 </NavLink>
@@ -65,7 +65,7 @@ const Dashboard = () => {
                 </NavLink>
             </li>
             <li>
-                <NavLink rel="noopener noreferrer" className="flex items-center p-2 space-x-3 rounded-md">
+                <NavLink to={'users'} className="flex items-center p-2 space-x-3 rounded-md">
                 <HiUserGroup className="text-2xl" />
                     <span>users</span>
                 </NavLink>

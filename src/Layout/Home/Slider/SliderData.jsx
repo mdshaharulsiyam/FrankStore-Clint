@@ -4,7 +4,7 @@ import { FaArrowRight } from "react-icons/fa6";
 const SliderData = ({ item }) => {
     const { category, products } = item
     return (
-        <div className="bg-slate-300 bg-opacity-10 box-border py-1">
+        <div className="bg-slate-300 bg-opacity-10 box-border py-6">
             <div className='container mx-auto flex md:flex-row flex-col-reverse flex-wrap md:justify-center justify-start  gap-2 items-center '>
                 <div className='md:w-[49%] w-full flex justify-start items-center text-center md:text-left'>
                     <span>

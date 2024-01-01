@@ -10,6 +10,8 @@ import ProductsDetails from "../Layout/ProductsDetails/ProductsDetails";
 import Payment from "../Layout/Payment/Payment";
 import Cart from "../DashboardLayout/Cart/Cart";
 import Order from "../DashboardLayout/Order/Order";
+import User from "../DashboardLayout/Users/User";
+import Profile from "../DashboardLayout/Profile/Profile";
 const Routes = () => {
   const axiosrequest = useAxiosrequest()
   const router = createBrowserRouter([
@@ -57,6 +59,14 @@ const Routes = () => {
         {
           path: 'order',
           element : <Order/>
+        },
+        {
+          path: 'users',
+          element : <User/>
+        },
+        {
+          path: 'profile',
+          element : <Profile/>
         },
       ]
     }

@@ -1,7 +1,20 @@
 import { MdOutlineLocalShipping } from "react-icons/md";
 import { Link } from "react-router-dom"
-const CartItemModal = ({ setCartItemShow, cartData }) => {
-    console.log(setCartItemShow, cartData)
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { useContext } from "react";
+import { FrankStoreData } from "../../../Context/FrankStoreContext";
+const CartItemModal = ({ setCartItemShow, cartData,refetch }) => {
+    const {currentUser}=useContext(FrankStoreData)
+    // console.log(setCartItemShow, cartData)
+    const axiosequre = useAxiosSecure()
+    const removefromCart = (_id) => {
+        // Cart
+        axiosequre.delete(`/Cart?useremail=${currentUser?.useremail}&id=${_id}`)
+        .then((res)=>{
+            refetch()
+            console.log(res.data)
+        })
+    }
     return (
         <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 bg-gray-900 text-gray-100 absolute z-10 right-0 top-[73px] max-h-[450px] overflow-y-auto rounded-lg">
             <h2 className="text-xl font-semibold">my cart</h2>
@@ -22,7 +35,7 @@ const CartItemModal = ({ setCartItemShow, cartData }) => {
                                     </div>
                                 </div>
                                 <div className="flex text-sm divide-x">
-                                    <button type="button" className="flex items-center px-2 py-1 pl-0 space-x-1  hover:text-red-600 active:scale-95">
+                                    <button onClick={()=>removefromCart(item?.cartData[0]?._id)} type="button" className="flex items-center px-2 py-1 pl-0 space-x-1  hover:text-red-600 active:scale-95">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 h-4 fill-current">
                                             <path d="M96,472a23.82,23.82,0,0,0,23.579,24H392.421A23.82,23.82,0,0,0,416,472V152H96Zm32-288H384V464H128Z"></path>
                                             <rect width="32" height="200" x="168" y="216"></rect>
