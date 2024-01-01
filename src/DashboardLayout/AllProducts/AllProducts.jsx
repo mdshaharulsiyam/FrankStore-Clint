@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import useAxiosSecure from '../../Hooks/useAxiosSecure'
 const AllProducts = () => {
-    const {currentUser}=useContext(FrankStoreData)
+    const { currentUser } = useContext(FrankStoreData)
     const { seacrhValue, setSearchValue, categoryFilter, setCategoryFilter } = useContext(FrankStoreData)
     const axiosrequest = useAxiosrequest()
     const [categoryData, setCategoryData] = useState([])
@@ -27,7 +27,7 @@ const AllProducts = () => {
     useEffect(() => {
         axiosrequest.get('/categores').then((data) => setCategoryData(data.data))
     }, [])
-    const [isPending,allproducts,refetch] = useGetallProducts(categoryFilter, sortBy, sortValue, seacrhValue, pageNumber, itemPerPage)
+    const [isPending, allproducts, refetch] = useGetallProducts(categoryFilter, sortBy, sortValue, seacrhValue, pageNumber, itemPerPage)
     // console.log(allproducts);
     const handelCategory = (category) => {
 
@@ -91,7 +91,7 @@ const AllProducts = () => {
                 <span className='flex justify-between grow pb-[6px]'>
                     <span>
                         <select onInput={(e) => {
-                    
+
                             setSortby(e.target.value)
                         }} className=" rounded py-1 px-3 border-2 border-black">
                             <option value={'none'} selected>none</option>
@@ -101,7 +101,7 @@ const AllProducts = () => {
                         </select>
                         {
                             (sortBy === 'price') && <select onInput={(e) => {
-                        
+
                                 setSortValue(e.target.value)
                             }} className=" rounded py-1 px-3 border-2 border-black ml-2">
                                 <option value={'LTH'} >low to high</option>
@@ -112,7 +112,7 @@ const AllProducts = () => {
                     </span>
                     <span className='flex justify-start items-center border-2 border-black'>
                         <input onKeyUp={(e) => {
-                    
+
                             setSearchValue(e.target.value)
                         }} type="text" placeholder="Search" className="outline-none active:outline-none active:border-none p-2 w-full max-w-xs" />
                         <button className='rounded-none hover:text-blue-600 active:scale-95'><FaSearch /></button>
@@ -140,13 +140,15 @@ const AllProducts = () => {
                                 <td>{item?.addedBy}</td>
                                 <td>${item?.price}</td>
                                 <td>{item?.totalSold}</td>
-                                <td>{item?.quantity}</td>
+                                <td>{item?.quantity==0?'out of stock':item?.quantity}</td>
                                 <td className='text-3xl flex justify-start items-center gap-2 cursor-pointer'>
                                     <Link to={`/productDeails/${item?._id}`}>
                                         <TbListDetails className='hover:text-blue-500' />
                                     </Link>
-                                    <MdModeEditOutline />
-                                    <MdDelete onClick={()=>Deleteproducts(item._id)} className='hover:text-red-500 active:scale-75 transition-all' />
+                                    <Link to={`/dashboard/updateproduct/${item._id}`}>
+                                        <MdModeEditOutline />
+                                    </Link>
+                                    <MdDelete onClick={() => Deleteproducts(item._id)} className='hover:text-red-500 active:scale-75 transition-all' />
                                 </td>
                             </tr>)
                         }
@@ -165,7 +167,7 @@ const AllProducts = () => {
                     </button>
                     {
                         pages.map(item => <button onClick={() => {
-                    
+
                             setPageNumber(item)
                         }} key={item} type="button" title="Page 1" className="inline-flex items-center hover:text-blue-600 justify-center w-8 h-8 text-sm font-semibold border rounded shadow-md dark:bg-gray-900 dark:text-violet-400 dark:border-violet-400">{item + 1}</button>)
                     }
@@ -174,7 +176,7 @@ const AllProducts = () => {
                     </button>
                 </div>
                 <select onChange={(e) => {
-            
+
                     setItemPerPage(e.target.value)
                     setPageNumber(0)
                 }} className=" rounded py-1 px-3 border-2 border-black">

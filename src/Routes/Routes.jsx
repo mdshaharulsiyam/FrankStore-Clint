@@ -13,6 +13,7 @@ import Order from "../DashboardLayout/Order/Order";
 import User from "../DashboardLayout/Users/User";
 import Profile from "../DashboardLayout/Profile/Profile";
 import AllProducts from "../DashboardLayout/AllProducts/AllProducts";
+import UpdateProducts from "../DashboardLayout/UpdateProducts/UpdateProducts";
 const Routes = () => {
   const axiosrequest = useAxiosrequest()
   const router = createBrowserRouter([
@@ -72,6 +73,11 @@ const Routes = () => {
         {
           path: 'allproduct',
           element : <AllProducts/>
+        },
+        {
+          path: 'updateproduct/:id',
+          element : <UpdateProducts/>,
+          loader: ({ params }) => axiosrequest.get(`/productDetails?id=${params.id}`)
         },
       ]
     }
