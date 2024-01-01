@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react"
 import useAxiosrequest from "../../../Hooks/useAxiosrequest"
 import SectionHeading from "../../../Components/SectionHeading/SectionHeading";
 import CategorySlider from "../../../Components/CategorySlider/CategorySlider";
-import useGetallProducts from "../../../Hooks/useGetallProducts";
 import { useNavigate } from "react-router-dom";
 import { FrankStoreData } from "../../../Context/FrankStoreContext";
 const Catrgoty = () => {

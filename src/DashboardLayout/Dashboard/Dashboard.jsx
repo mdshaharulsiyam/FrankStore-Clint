@@ -43,7 +43,7 @@ const Dashboard = () => {
                 </NavLink>
             </li>
             <li>
-                <NavLink rel="noopener noreferrer" className="flex items-center p-2 space-x-3 rounded-md">
+                <NavLink to={'allproduct'} className="flex items-center p-2 space-x-3 rounded-md">
                     <FaCartFlatbedSuitcase className="text-2xl" />
                     <span>products</span>
                 </NavLink>

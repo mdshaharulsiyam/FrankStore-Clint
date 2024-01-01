@@ -25,7 +25,7 @@ const CategorySlider = ({ categoryData, slidesPerView, spaceBetween, handelCateg
             {
                 categoryData.map(item => <SwiperSlide key={item._id}>
                     <div onClick={() => handelCategory(item.categoryName)} className="bg-gray-300 p-5 my-5 mb-7 select-none text-center hover:bg-red-700 hover:text-white transition-all">
-                        {location.pathname !== "/products" && <div className="h-10 w-10 mx-auto"><img className="w-full object-cover" src={item.categoryImage} alt="" /></div>}
+                        {location.pathname !== "/products"  && <div className="h-10 w-10 mx-auto"><img className="w-full object-cover" src={item.categoryImage} alt="" /></div>}
                         <p className={`${location.pathname !== "/products" && 'pt-3'} font-bold`}>{item.categoryName}</p>
                     </div>
                 </SwiperSlide>)

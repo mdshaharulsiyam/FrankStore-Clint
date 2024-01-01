@@ -12,6 +12,7 @@ import Cart from "../DashboardLayout/Cart/Cart";
 import Order from "../DashboardLayout/Order/Order";
 import User from "../DashboardLayout/Users/User";
 import Profile from "../DashboardLayout/Profile/Profile";
+import AllProducts from "../DashboardLayout/AllProducts/AllProducts";
 const Routes = () => {
   const axiosrequest = useAxiosrequest()
   const router = createBrowserRouter([
@@ -67,6 +68,10 @@ const Routes = () => {
         {
           path: 'profile',
           element : <Profile/>
+        },
+        {
+          path: 'allproduct',
+          element : <AllProducts/>
         },
       ]
     }
