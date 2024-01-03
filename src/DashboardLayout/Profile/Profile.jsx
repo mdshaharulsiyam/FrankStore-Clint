@@ -19,6 +19,7 @@ const Profile = () => {
                             </div>
                             <div className="flex flex-col items-center">
                                 <span className=" flex justify-start items-center gap-1"> {currentUser?.useremail}</span>
+                                <span className=" flex justify-start items-center gap-1">address : {currentUser?.address}</span>
                                
                             </div>
                         </div>
