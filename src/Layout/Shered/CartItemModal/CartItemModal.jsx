@@ -3,17 +3,17 @@ import { Link } from "react-router-dom"
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useContext } from "react";
 import { FrankStoreData } from "../../../Context/FrankStoreContext";
-const CartItemModal = ({ setCartItemShow, cartData,refetch }) => {
-    const {currentUser}=useContext(FrankStoreData)
+const CartItemModal = ({ setCartItemShow, cartData, refetch }) => {
+    const { currentUser } = useContext(FrankStoreData)
     // console.log(setCartItemShow, cartData)
     const axiosequre = useAxiosSecure()
     const removefromCart = (_id) => {
         // Cart
         axiosequre.delete(`/Cart?useremail=${currentUser?.useremail}&id=${_id}`)
-        .then((res)=>{
-            refetch()
-            console.log(res.data)
-        })
+            .then((res) => {
+                refetch()
+                console.log(res.data)
+            })
     }
     return (
         <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 bg-gray-900 text-gray-100 absolute z-10 right-0 top-[73px] max-h-[450px] overflow-y-auto rounded-lg">
@@ -35,7 +35,7 @@ const CartItemModal = ({ setCartItemShow, cartData,refetch }) => {
                                     </div>
                                 </div>
                                 <div className="flex text-sm divide-x">
-                                    <button onClick={()=>removefromCart(item?.cartData[0]?._id)} type="button" className="flex items-center px-2 py-1 pl-0 space-x-1  hover:text-red-600 active:scale-95">
+                                    <button onClick={() => removefromCart(item?.cartData[0]?._id)} type="button" className="flex items-center px-2 py-1 pl-0 space-x-1  hover:text-red-600 active:scale-95">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 h-4 fill-current">
                                             <path d="M96,472a23.82,23.82,0,0,0,23.579,24H392.421A23.82,23.82,0,0,0,416,472V152H96Zm32-288H384V464H128Z"></path>
                                             <rect width="32" height="200" x="168" y="216"></rect>
@@ -45,7 +45,7 @@ const CartItemModal = ({ setCartItemShow, cartData,refetch }) => {
                                         </svg>
                                         <span>Remove</span>
                                     </button>
-                                    <Link onClick={()=>setCartItemShow(false)} to={`/payment/${item?.cartData[0]?._id}`}>
+                                    <Link onClick={() => setCartItemShow(false)} to={`/payment/${item?.cartData[0]?._id}`}>
                                         <button type="button" className="flex items-center px-2 py-1 space-x-1 hover:text-green-600 active:scale-95">
                                             <MdOutlineLocalShipping className="text-xl" />
                                             <span className="uppercase">Order now</span>
@@ -67,9 +67,12 @@ const CartItemModal = ({ setCartItemShow, cartData,refetch }) => {
                 <Link to={'/products'} onClick={() => setCartItemShow(false)} type="button" className="px-6 py-2 border rounded-md dark:border-violet-400 hover:scale-105 hover:text-blue-600">
                     <span className="sr-only sm:not-sr-only">All products</span>
                 </Link>
-                <button type="button" className="px-6 py-2 border rounded-md dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400 hover:scale-105 hover:text-blue-600">
-                    <span className="sr-only sm:not-sr-only">my Orders</span>
-                </button>
+                <Link to={'/dashboard/order'}>
+                    <button type="button" className="px-6 py-2 border rounded-md dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400 hover:scale-105 hover:text-blue-600">
+                        <span className="sr-only sm:not-sr-only">my Orders</span>
+                    </button>
+                </Link>
+
             </div>
         </div>
     )

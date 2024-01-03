@@ -58,14 +58,16 @@ const ProductsDetails = () => {
         </div>
         <div className="pl-4">
           <h3 className="text-2xl font-bold">{productName}</h3>
-          <div className='flex justify-start items-center gap-2 py-2'>
-            <Rating
-              style={{ maxWidth: 100 }}
-              readOnly
-              orientation="horizontal"
-              value={rating / review}
-            /> <p className='font-medium'>({review} Reviews)</p>
-          </div>
+          {
+            review && <div className='flex justify-start items-center gap-2 py-2'>
+              <Rating
+                style={{ maxWidth: 100 }}
+                readOnly
+                orientation="horizontal"
+                value={rating / review}
+              /> <p className='font-medium'>({review} Reviews)</p>
+            </div>
+          }
           <p className="font-medium text-2xl">${price}</p>
           <span className="flex justify-start gap-2 items-center flex-wrap font-medium py-1"><p>in stock ({quantity})</p><p>total Sold ({totalSold})</p></span>
           <p>Brad : <span className="font-bold uppercase">{brand}</span></p>

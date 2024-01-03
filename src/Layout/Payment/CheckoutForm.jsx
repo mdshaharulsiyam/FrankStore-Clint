@@ -58,7 +58,6 @@ const CheckoutForm = ({ product }) => {
             }
             else {
                 if (paymentIntent.status === 'succeeded') {
-                    //upload to backend payment succed
                     const data = {
                         useremail: currentUser?.useremail,
                         itemId : _id,

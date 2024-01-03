@@ -11,11 +11,11 @@ const UpdateProducts = () => {
     const [loading, setloading] = useState(false)
     const product = useLoaderData()
     const axiosrequest = useAxiosrequest()
-    const axiossecure =useAxiosSecure()
+    const axiossecure = useAxiosSecure()
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
-    const { brand, category, date, description, price, productImage, productName, quantity, rating, review, totalSold, _id } = product.data
+    const { brand, category, date, description, price, productImage, productName, quantity, rating, review, totalSold, _id, addedBy } = product.data
     const [categoryData, setCategoryData] = useState([])
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     useEffect(() => {
         axiosrequest.get('/categores').then((data) => setCategoryData(data.data))
     }, [])
@@ -23,6 +23,7 @@ const UpdateProducts = () => {
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${imageapikey}`;
     const onSubmit = async (data) => {
         setloading(true)
+        data.addedBy = currentUser?.useremail
         if (data.productName === '') data.productName = productName
         if (data.price === '') data.price = price
         if (data.brand === '') data.brand = brand
@@ -88,7 +89,7 @@ const UpdateProducts = () => {
 
                 </select>
                 <span>chooes a image for class</span>
-                <input className="file-input file-input-bordered w-full " type="file" placeholder="image" {...register("productImage")} />
+                <input className="file-input file-input-bordered w-full " type="file" placeholder="productImage" {...register("productImage")} />
                 <p>current image for this product</p>
                 <img className='w-40' src={productImage} alt="" />
                 <textarea className="block outline-none border-b-2 w-full mx-auto p-2 h-20 resize-none pl-0 border-b-gray-400 my-2" type="text" defaultValue={description} {...register("description")} />

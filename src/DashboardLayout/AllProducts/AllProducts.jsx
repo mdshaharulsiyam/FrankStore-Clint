@@ -4,7 +4,7 @@ import useAxiosrequest from '../../Hooks/useAxiosrequest'
 import useGetallProducts from '../../Hooks/useGetallProducts'
 import CategorySlider from '../../Components/CategorySlider/CategorySlider'
 import { FaSearch } from 'react-icons/fa'
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6'
+import { FaArrowLeft, FaArrowRight, FaPlus } from 'react-icons/fa6'
 import SectionHeading from '../../Components/SectionHeading/SectionHeading'
 import { MdDelete, MdModeEditOutline } from 'react-icons/md'
 import { TbListDetails } from 'react-icons/tb'
@@ -77,6 +77,7 @@ const AllProducts = () => {
     return (
         <div className='container mx-auto py-10'>
             <h3 className='text-3xl text-center uppercase'>total {allproducts.length} products</h3>
+            <Link to={'/dashboard/addclass'}><button className='flex justify-start items-center text-xl font-semibold uppercase bg-gray-300'><FaPlus />product</button></Link>
             <div className="md:block hidden cursor-pointer my-11">
                 <CategorySlider categoryData={categoryData} slidesPerView={6} spaceBetween={10} handelCategory={handelCategory} />
 
@@ -140,7 +141,7 @@ const AllProducts = () => {
                                 <td>{item?.addedBy}</td>
                                 <td>${item?.price}</td>
                                 <td>{item?.totalSold}</td>
-                                <td>{item?.quantity==0?'out of stock':item?.quantity}</td>
+                                <td>{item?.quantity == 0 ? 'out of stock' : item?.quantity}</td>
                                 <td className='text-3xl flex justify-start items-center gap-2 cursor-pointer'>
                                     <Link to={`/productDeails/${item?._id}`}>
                                         <TbListDetails className='hover:text-blue-500' />

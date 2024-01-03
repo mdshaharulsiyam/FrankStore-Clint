@@ -1,21 +1,62 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { FrankStoreData } from '../../Context/FrankStoreContext'
 import useGetMyOrder from '../../Hooks/useGetMyOrder'
 import { TbListDetails } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
 import useAxiosSecure from '../../Hooks/useAxiosSecure'
-
+import StarRatings from 'react-star-ratings';
+import { useForm } from 'react-hook-form'
+import { FaRegWindowClose } from 'react-icons/fa'
+import { MdFeedback } from 'react-icons/md'
 const Order = () => {
   const { currentUser } = useContext(FrankStoreData)
   const [isPending, OrderData, refetch] = useGetMyOrder(currentUser?.useremail)
-  console.log(OrderData);
+  const [show, setshow] = useState(false)
+  const [submitingFeedbcak, setsubmitingFeedbcak] = useState(false)
+  const { register, handleSubmit, formState: { errors }, reset } = useForm()
+  // console.log(OrderData);
   const axiosequre = useAxiosSecure()
   const deleteitem = (id) => {
     axiosequre.delete(`/order?useremail=${currentUser?.useremail}&id=${id}`)
-    .then((res)=>{
-      refetch()
+      .then((res) => {
+        refetch()
         console.log(res.data)
-    })
+      })
+  }
+  const [rating, setrating] = useState(5)
+  const onSubmit = async (data) => {
+    setsubmitingFeedbcak(true)
+    const feedback = {
+      course: id,
+      title: CourseDetails?.title,
+      rating: rating,
+      description: data.description,
+      username: currentUser?.username,
+      userimage: currentUser?.profileImage
+    }
+    axiossecure.post(`/feedback?useremail=${currentUser?.useremail}`, feedback)
+      .then((res) => {
+        if (res.data.success) {
+          setshow(false)
+          reset()
+          setsubmitingFeedbcak(false)
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "feedback sent succesfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+            footer: 'unable to submit feedback'
+          });
+          setsubmitingFeedbcak(false)
+        }
+      })
   }
   return (
     <>
@@ -23,8 +64,7 @@ const Order = () => {
       <p>total order {OrderData.length}</p>
       <div className='md:grid grid-cols-2 gap-4 container mx-auto'>
         {
-          OrderData?.map(item => <div className="flex flex-col py-6 shadow-2xl p-2 sm:flex-row sm:justify-between">
-
+          OrderData?.map(item => <div className="flex flex-col py-6 relative shadow-2xl p-2 sm:flex-row sm:justify-between">
             <div className="flex w-full items-center space-x-2 sm:space-x-4">
               <img className="flex-shrink-0 object-cover w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500" src={item?.myOrder[0]?.productImage} alt="Polaroid camera" />
               <div className="flex flex-col justify-between w-full pb-4">
@@ -56,9 +96,38 @@ const Order = () => {
                 </div>
               </div>
             </div>
+            {
+              item?.status === 'deliverd' && <button onClick={() => setshow(true)} className='block right-3 top-3 absolute bg-orange-400 font-semibold hover:bg-orange-700 hover:text-white transition-all p-0 py-1 px-1 text-3xl'><MdFeedback /></button>
+            }
+
           </div>)
         }
+
       </div>
+      {
+        show && <div className="flex justify-center flex-col items-center absolute bg-white shadow-2xl p-6 pb-0 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+          <form className="max-w-2xl mx-auto pb-12 min-w-[320px]" onSubmit={handleSubmit(onSubmit)}>
+            <FaRegWindowClose onClick={() => setshow(false)} className='ml-auto text-2xl m-2 hover:text-red-500 cursor-pointer' />
+            <h2 className='font-semibold pb-2'>Leave your feedback</h2>
+            <div>
+              <StarRatings
+                rating={rating}
+                starRatedColor="orange"
+                starHoverColor="orange"
+                changeRating={(r) => setrating(r)}
+                numberOfStars={5}
+                starDimension="30px"
+                starSpacing="5px"
+                name='rating'
+              />
+            </div>
+            {errors.deadline && <p className="text-red-500 ">deadline is required*</p>}
+            <textarea className="block outline-none border-b-2 w-full mx-auto p-2 h-20 resize-none pl-0 border-b-gray-400 my-2" type="number" placeholder="description" {...register("description", { required: true })} />
+            {errors.description && <p className="text-red-500 ">description is required*</p>}
+            <button className="w-full bg-red-600 cursor-pointer mt-4 rounded-lg text-white py-2 hover:bg-red-900 transition-all" type="submit">{submitingFeedbcak ? <span className="loading loading-bars loading-sm"></span> : 'send feedback'}</button>
+          </form>
+        </div>
+      }
     </>
   )
 }

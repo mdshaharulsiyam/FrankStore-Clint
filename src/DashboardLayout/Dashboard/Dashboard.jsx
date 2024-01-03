@@ -6,6 +6,7 @@ import { IoCartOutline } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import { FaCartFlatbedSuitcase } from "react-icons/fa6";
 import { HiUserGroup } from "react-icons/hi2";
+import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 const Dashboard = () => {
     const { currentUser } = useContext(FrankStoreData)
     const userMenu = <>
@@ -46,6 +47,12 @@ const Dashboard = () => {
                 <NavLink to={'allproduct'} className="flex items-center p-2 space-x-3 rounded-md">
                     <FaCartFlatbedSuitcase className="text-2xl" />
                     <span>products</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink to={'allorders'} className="flex items-center p-2 space-x-3 rounded-md">
+                    <MdOutlineProductionQuantityLimits className="text-2xl" />
+                    <span>all Orders</span>
                 </NavLink>
             </li>
             <li>

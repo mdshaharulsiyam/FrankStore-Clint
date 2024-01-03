@@ -7,7 +7,7 @@ import { GrUserAdmin } from "react-icons/gr";
 import Swal from 'sweetalert2'
 import { FrankStoreData } from '../../Context/FrankStoreContext'
 const User = () => {
-    const {currentUser}=useContext(FrankStoreData)
+    const { currentUser } = useContext(FrankStoreData)
     const [filter, setfilter] = useState('all')
     const [pagenumber, setpagenumber] = useState(0)
     const [isPending, users, refetch] = useGetUsers(filter, pagenumber)
@@ -120,38 +120,47 @@ const User = () => {
                         <tbody>
 
                             {
-                                users?.map(item => <tr className="bg-base-200">
+                                users?.map(item => <tr key={item?._id} className="bg-base-200">
                                     <th className='w-10 h-10' ><img className='w-10 h-10 rounded-full' src={item?.profileImage} alt="" /></th>
                                     <td>{item?.username}</td>
                                     <td>{item?.useremail}</td>
                                     <td>{item?.role}</td>
                                     <td className='flex justify-center items-center'>
-                                            {
-                                                item?.role === 'admin' || item?.role === 'owner' ?
-                                                    <button data-tooltip-id="admin"
-                                                        data-tooltip-content={`${item.username} is an ${item?.role}`}
-                                                        data-tooltip-place="left" disabled className='px-4 py-1 bg-gray-600 text-white ml-2'>
-                                                        <MdAdminPanelSettings />
-                                                    </button>
-                                                    :
-                                                    <button onClick={() => MakeAdmin(item._id)}
-                                                        data-tooltip-id="notadmin"
-                                                        data-tooltip-content={`make ${item.username} an admin`}
-                                                        data-tooltip-place="left"
-                                                        className='px-4 py-1 hover:scale-105 active:scale-95 bg-green-600 text-white ml-2'>
-                                                        <GrUserAdmin />
-                                                    </button>
-                                            }
-                                            <Tooltip id="admin" />
-                                            <Tooltip id="notadmin" />
-                                            <Tooltip id="delete" />
-                                        <button onClick={() => Deleteuser(item._id)}
-                                            data-tooltip-id="delete"
-                                            data-tooltip-content={`delete ${item.username}`}
-                                            data-tooltip-place="left"
-                                            className='px-4 py-1 hover:scale-105 active:scale-95 bg-green-600 text-white ml-2'>
-                                            <MdDelete />
-                                        </button>
+                                        {
+                                            item?.role === 'admin' || item?.role === 'owner' ?
+                                                <button data-tooltip-id="admin"
+                                                    data-tooltip-content={`${item.username} is an ${item?.role}`}
+                                                    data-tooltip-place="left" disabled className='px-4 py-1 bg-gray-600 text-white ml-2'>
+                                                    <MdAdminPanelSettings />
+                                                </button>
+                                                :
+                                                <button onClick={() => MakeAdmin(item._id)}
+                                                    data-tooltip-id="notadmin"
+                                                    data-tooltip-content={`make ${item.username} an admin`}
+                                                    data-tooltip-place="left"
+                                                    className='px-4 py-1 hover:scale-105 active:scale-95 bg-green-600 text-white ml-2'>
+                                                    <GrUserAdmin />
+                                                </button>
+                                        }
+                                        <Tooltip id="admin" />
+                                        <Tooltip id="notadmin" />
+                                        <Tooltip id="deleten" />
+                                        {
+                                            ((item?.role === 'admin' || item?.role === 'owner') & currentUser?.role !== 'owner') ? <button disabled
+                                                data-tooltip-id="deleten"
+                                                data-tooltip-content={`only woner can delete an ${item?.role}`}
+                                                data-tooltip-place="left"
+                                                className='px-4 py-1 bg-gray-600 text-white ml-2'>
+                                                <MdDelete />
+                                            </button> :
+                                                <button onClick={() => Deleteuser(item._id)}
+                                                    data-tooltip-id="delete"
+                                                    data-tooltip-content={`delete ${item.username}`}
+                                                    data-tooltip-place="left"
+                                                    className='px-4 py-1 hover:scale-105 active:scale-95 bg-red-600 text-white ml-2'>
+                                                    <MdDelete />
+                                                </button>
+                                        }
                                     </td>
                                 </tr>)
                             }
