@@ -3,23 +3,40 @@ import { Link } from "react-router-dom"
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useContext } from "react";
 import { FrankStoreData } from "../../../Context/FrankStoreContext";
+import Swal from "sweetalert2";
 const CartItemModal = ({ setCartItemShow, cartData, refetch }) => {
     const { currentUser } = useContext(FrankStoreData)
-    // console.log(setCartItemShow, cartData)
     const axiosequre = useAxiosSecure()
     const removefromCart = (_id) => {
-        // Cart
-        axiosequre.delete(`/Cart?useremail=${currentUser?.useremail}&id=${_id}`)
-            .then((res) => {
-                refetch()
-                console.log(res.data)
-            })
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want's to delete it form cart !",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, remove it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosequre.delete(`/Cart?useremail=${currentUser?.useremail}&id=${_id}`)
+                .then((res) => {
+                    refetch()
+                    Swal.fire({
+                        title: "removed!",
+                        text: "Your product has been removed.",
+                        icon: "success"
+                    });
+                })
+                
+            }
+        });
+      
     }
     return (
         <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 bg-gray-900 text-gray-100 absolute z-10 right-0 top-[73px] max-h-[450px] overflow-y-auto rounded-lg">
             <h2 className="text-xl font-semibold">my cart</h2>
             {
-                cartData.length <=0 && <p>no item in your cart</p>
+                cartData.length <= 0 && <p>no item in your cart</p>
             }
             <ul className="flex flex-col divide-y dark:divide-gray-700">
                 {

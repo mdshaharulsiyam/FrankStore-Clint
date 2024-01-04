@@ -13,6 +13,7 @@ const Header = () => {
     const navigate = useNavigate()
     const navlink = <>
         <NavLink to={'/'} className={`text-black menus`}>Home</NavLink>
+        <NavLink to={'/products'} className={`text-black menus`}>products</NavLink>
         {
             currentUser?.useremail && <NavLink to={'/dashboard/profile'} className={`text-black menus`}>Dashboard</NavLink>
         }

@@ -10,6 +10,7 @@ import SectionHeading from "../../Components/SectionHeading/SectionHeading"
 import { FrankStoreData } from "../../Context/FrankStoreContext"
 import useAxiosSecure from "../../Hooks/useAxiosSecure"
 import Swal from "sweetalert2"
+import useGetCartData from "../../Hooks/useGetCartData"
 const ProductsDetails = () => {
   const { currentUser } = useContext(FrankStoreData)
   const product = useLoaderData()
@@ -17,6 +18,7 @@ const ProductsDetails = () => {
   const axiosecure = useAxiosSecure()
   const [loading, setloading] = useState(false)
   const [feedback, setfeedback] = useState([])
+  const [isPending, cartData, refetch] = useGetCartData(currentUser?.useremail)
   // console.log(product.data)
   const { brand, category, date, description, price, productImage, productName, quantity, rating, review, totalSold, _id } = product.data
   useEffect(() => {
@@ -28,30 +30,52 @@ const ProductsDetails = () => {
     axiosrequest.get(`/relaventdata?category=${category}`).then((data) => setRelaventData(data.data))
   }, [])
   const addtoCart = () => {
-    setloading(true)
-    if (!currentUser?.useremail) {
-      setloading(false)
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "please login first",
-      });
-    }
-    const cartData = {
-      user: currentUser.useremail,
-      itemId: _id
-    }
-    axiosecure.post('/Cart', cartData).then((data) => {
-      setloading(false)
-      if (data.data.msg === 'Item already added') {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "item already aded to cart",
-        });
+    Swal.fire({
+      title: "Are you sure?",
+      text: `you want's to add ${productName} to cart`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setloading(true)
+        if (!currentUser?.useremail) {
+          setloading(false)
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "please login first",
+          });
+        }
+        const cartData = {
+          user: currentUser.useremail,
+          itemId: _id
+        }
+        axiosecure.post('/Cart', cartData).then((data) => {
+          setloading(false)
+          if (data.data.msg === 'Item already added') {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "item already aded to cart",
+            });
+          } else {
+            refetch()
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${productName} added to cart succesfully`,
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+    
+        })
       }
-      console.log(data.data)
-    })
+    });
+    
     // console.log(cartData);
   }
   return (
@@ -76,7 +100,7 @@ const ProductsDetails = () => {
           <span className="flex justify-start gap-2 items-center flex-wrap font-medium py-1"><p>in stock ({quantity})</p><p>total Sold ({totalSold})</p></span>
           <p>Brad : <span className="font-bold uppercase">{brand}</span></p>
           {
-            quantity < 20 && <p className="text-red-400 font-bold uppercase">low stock</p>
+            (quantity < 20 && quantity !== 0) && <p className="text-red-400 font-bold uppercase">low stock</p>
           }
           <p className="text-sm tracking-[1px] py-2 pb-4">{description}</p>
 
@@ -115,6 +139,10 @@ const ProductsDetails = () => {
       <div className="container mx-auto">
         <SectionHeading topheadin={`feedbacks`} heading={`users feedbacks for this products`}></SectionHeading>
         <div className="py-10">
+          {
+            feedback.length <= 0 && <p className="text-lg text-red-400 ">No reviews for this product</p>
+          }
+
           {
             feedback?.map(item => <div className="bg-white shadow-2xl py-2 p-1 my-1" key={item?._id}>
               <span className="flex justify-start items-center gap-2">
