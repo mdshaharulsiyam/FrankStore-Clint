@@ -16,6 +16,7 @@ import AllProducts from "../DashboardLayout/AllProducts/AllProducts";
 import UpdateProducts from "../DashboardLayout/UpdateProducts/UpdateProducts";
 import AddProduct from "../DashboardLayout/AddProduct/AddProduct";
 import AllOrder from "../DashboardLayout/AllOrder/AllOrder";
+import UserRoute from "../PrivetRoutes/UserRoute";
 const Routes = () => {
   const axiosrequest = useAxiosrequest()
   const router = createBrowserRouter([
@@ -54,40 +55,40 @@ const Routes = () => {
     },
     {
       path: '/dashboard',
-      element: <Dashboard />,
+      element: <UserRoute> <Dashboard /></UserRoute>,
       children: [
         {
           path: 'cart',
-          element : <Cart/>
+          element: <UserRoute> <Cart /></UserRoute>
         },
         {
           path: 'order',
-          element : <Order/>
+          element: <UserRoute> <Order /></UserRoute>
         },
         {
           path: 'users',
-          element : <User/>
+          element: <User />
         },
         {
           path: 'profile',
-          element : <Profile/>
+          element:<UserRoute> <Profile /></UserRoute>
         },
         {
           path: 'allproduct',
-          element : <AllProducts/>
+          element: <AllProducts />
         },
         {
           path: 'allorders',
-          element : <AllOrder/>
+          element: <AllOrder />
         },
         {
           path: 'updateproduct/:id',
-          element : <UpdateProducts/>,
+          element: <UpdateProducts />,
           loader: ({ params }) => axiosrequest.get(`/productDetails?id=${params.id}`)
         },
         {
           path: 'addclass',
-          element : <AddProduct/>,
+          element: <AddProduct />,
         },
       ]
     }

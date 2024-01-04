@@ -18,6 +18,9 @@ const CartItemModal = ({ setCartItemShow, cartData, refetch }) => {
     return (
         <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 bg-gray-900 text-gray-100 absolute z-10 right-0 top-[73px] max-h-[450px] overflow-y-auto rounded-lg">
             <h2 className="text-xl font-semibold">my cart</h2>
+            {
+                cartData.length <=0 && <p>no item in your cart</p>
+            }
             <ul className="flex flex-col divide-y dark:divide-gray-700">
                 {
                     cartData?.map(item => <li className="flex flex-col py-6 sm:flex-row sm:justify-between">

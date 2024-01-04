@@ -13,10 +13,8 @@ const Header = () => {
     const navigate = useNavigate()
     const navlink = <>
         <NavLink to={'/'} className={`text-black menus`}>Home</NavLink>
-        <NavLink to={'/about'} className={`text-black menus`}>About</NavLink>
-        <NavLink to={'/contact'} className={`text-black menus`}>Contact</NavLink>
         {
-            currentUser?.useremail && <NavLink to={'/dashboard'} className={`text-black menus`}>Dashboard</NavLink>
+            currentUser?.useremail && <NavLink to={'/dashboard/profile'} className={`text-black menus`}>Dashboard</NavLink>
         }
         {
             currentUser?.useremail ? <button onClick={logout} className="active:scale-90">Logout</button> : <NavLink to={'/signup'} className={`text-black menus`}>Sign Up</NavLink>

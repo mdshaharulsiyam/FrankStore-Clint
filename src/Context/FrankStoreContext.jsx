@@ -10,6 +10,7 @@ const FrankStoreContext = ({ children }) => {
     const axiosrequest = useAxiosrequest()
     const axiosecure = useAxiosSecure()
     const [currentUser, setCurrentUser] = useState({})
+    const [loading,setloading]=useState(true)
     // 
     const [categoryFilter, setCategoryFilter] = useState('all')
     const [seacrhValue, setSearchValue] = useState('')
@@ -67,6 +68,7 @@ const FrankStoreContext = ({ children }) => {
                 setCurrentUser(userdata)
                 axiosrequest.get(`/user?useremail=${user?.email}`)
                     .then(async (res) => {
+                        setloading(false)
                         if (res.data.useremail) {
                             const userData = res.data
                             setCurrentUser(userData)
@@ -89,6 +91,7 @@ const FrankStoreContext = ({ children }) => {
 
 
             } else {
+                setloading(false)
                 setCurrentUser(null)
             }
         });
@@ -108,7 +111,7 @@ const FrankStoreContext = ({ children }) => {
         loginuser,
         loginwithGoogle,
         currentUser,
-        seacrhValue, setSearchValue, categoryFilter, setCategoryFilter, logout
+        seacrhValue, setSearchValue, categoryFilter, setCategoryFilter, logout,loading
     }
     return (
         <FrankStoreData.Provider value={contextData}>
