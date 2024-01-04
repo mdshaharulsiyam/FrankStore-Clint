@@ -17,8 +17,9 @@ const Payment = () => {
     const { brand, category, date, description, price, productImage, productName, quantity, rating, review, totalSold, _id } = product.data
     const [adressstate, setadressstate] = useState('')
     const axiossecure = useAxiosSecure()
-    const [show,setshow]=useState(false)
+    const [show, setshow] = useState(false)
     const onSubmit = async (data) => {
+        setshow(false)
         setaddingaddress(true)
         axiossecure.patch(`/address?useremail=${currentUser?.useremail}`, { address: data.address })
             .then((res) => {
@@ -57,7 +58,7 @@ const Payment = () => {
             {
                 ((!currentUser?.address && !adressstate) || show) ? <div className=" max-w-2xl container mx-auto">
                     {
-                        show && <button onClick={()=>setshow(false)} className='p-0 py-1 px-6 block ml-auto bg-red-400'>cancel</button>
+                        show && <button onClick={() => setshow(false)} className='p-0 py-1 px-6 block ml-auto bg-red-400'>cancel</button>
                     }
                     <form className="max-w-2xl mx-auto pb-12" onSubmit={handleSubmit(onSubmit)}>
                         <h2 className='font-semibold pb-2'>your adress not added to you profile plese add your address</h2>
@@ -66,8 +67,8 @@ const Payment = () => {
                         <button className="w-full max-w-xs mx-auto block bg-teal-200 cursor-pointer mt-4 rounded-lg text-black py-2 hover:bg-teal-400 transition-all" type="submit">{addingaddress ? <span className="loading loading-bars loading-sm"></span> : 'add address'}</button>
                     </form>
                 </div> : <div className='max-w-2xl container mx-auto'>
-                    <span>your current address <button onClick={()=>setshow(true)} className='p-0 py-1 px-6 bg-teal-200'>change</button> </span>
-                    <p className='pt-2 font-semibold'>{currentUser?.address ?currentUser?.address : adressstate}</p>
+                    <span>your current address <button onClick={() => setshow(true)} className='p-0 py-1 px-6 bg-teal-200'>change</button> </span>
+                    <p className='pt-2 font-semibold'>{adressstate?.address ? adressstate?.address : currentUser?.address}</p>
                 </div>
             }
             <Elements stripe={stripePromise}>

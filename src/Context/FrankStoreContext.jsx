@@ -70,22 +70,23 @@ const FrankStoreContext = ({ children }) => {
                         if (res.data.useremail) {
                             const userData = res.data
                             setCurrentUser(userData)
+                            if (user.emailVerified !== res.data.emailVerified) {
+                                // console.log('please wait responce is coming')
+                                const usersNewData = {
+                                    ...userdata,
+                                    emailVerified: user.emailVerified
+                                };
+                                // console.log(usersNewData)
+                                axiosrequest.patch('/user', usersNewData)
+                                    .then((res) => console.log(res.data))
+                            }
                         }
                     })
                 axiosecure.post('/jwt', userdata)
                     .then((res) => {
                         // console.log(res.data)
                     })
-                if (user.emailVerified !== res.data.emailVerified) {
-                    console.log('please wait responce is coming')
-                    const usersNewData = {
-                        ...userdata,
-                        emailVerified: user.emailVerified
-                    };
-                    // console.log(usersNewData)
-                    axiosrequest.patch('/user', usersNewData)
-                        .then((res) => console.log(res.data))
-                }
+
 
             } else {
                 setCurrentUser(null)

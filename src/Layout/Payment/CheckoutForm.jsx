@@ -65,7 +65,7 @@ const CheckoutForm = ({ product, currentUser, adressstate }) => {
                         amount: price,
                         transitionId: paymentIntent?.id,
                         status: 'pending',
-                        address: currentUser?.address ? currentUser?.address : adressstate
+                        address: adressstate?.address ? currentUser?.address : adressstate?.address
                     }
                     axiosSecure.post('/order', data)
                         .then((res) => {

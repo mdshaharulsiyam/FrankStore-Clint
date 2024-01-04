@@ -19,7 +19,7 @@ const AllOrder = () => {
       })
   }
   const deliveritem = (id) => {
-    axiosequre.patch(`/order?useremail=${currentUser?.useremail}&id=${id}`,{status : 'deliverd'})
+    axiosequre.patch(`/order?useremail=${currentUser?.useremail}&id=${id}`, { status: 'deliverd' })
       .then((res) => {
         refetch()
         console.log(res.data)
@@ -52,15 +52,18 @@ const AllOrder = () => {
                 <td>${item?.myOrder[0]?.price}</td>
                 <td>{item?.transitionId}</td>
                 <td className='min-w-[200px]'>{item?.address}</td>
-                <td className={`font-semibold ${ item?.status === "pending"?'text-red-600':'text-black'}`}>{item?.status}</td>
+                <td className={`font-semibold ${item?.status === "pending" ? 'text-red-600' : 'text-black'}`}>{item?.status}</td>
                 <td className='text-3xl flex justify-start items-center gap-2 cursor-pointer'>
                   <Link to={`/productDeails/${item?.myOrder[0]?._id}`}>
                     <TbListDetails className='hover:text-blue-500' />
                   </Link>
-                  <TbTruckDelivery onClick={()=>deliveritem(item?._id)} className='hover:text-green-500' />
                   {
-                    item?.status !== "pending" && <MdDelete onClick={() => deleteitem(item?._id)} className='hover:text-red-500 active:scale-75 transition-all' /> 
-                  } 
+                    item?.status === "pending" && <TbTruckDelivery onClick={() => deliveritem(item?._id)} className='hover:text-green-500' />
+                  }
+
+                  {
+                    item?.status !== "pending" && <MdDelete onClick={() => deleteitem(item?._id)} className='hover:text-red-500 active:scale-75 transition-all' />
+                  }
 
                 </td>
               </tr>)

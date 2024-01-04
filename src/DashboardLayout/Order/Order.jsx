@@ -8,6 +8,7 @@ import StarRatings from 'react-star-ratings';
 import { useForm } from 'react-hook-form'
 import { FaRegWindowClose } from 'react-icons/fa'
 import { MdFeedback } from 'react-icons/md'
+import Swal from 'sweetalert2'
 const Order = () => {
   const { currentUser } = useContext(FrankStoreData)
   const [isPending, OrderData, refetch] = useGetMyOrder(currentUser?.useremail)
@@ -25,19 +26,21 @@ const Order = () => {
   }
   const axiossecure = useAxiosSecure()
   const [rating, setrating] = useState(5)
+  const [id, setid] = useState()
   const onSubmit = async (data) => {
     setsubmitingFeedbcak(true)
     const feedback = {
-      course: id,
-      title: CourseDetails?.title,
-      rating: rating,
+      product: id,
+      rating: parseInt(rating),
       description: data.description,
-      username: currentUser?.username,
+      useremail: currentUser?.useremail,
       userimage: currentUser?.profileImage
     }
     axiossecure.post(`/feedback?useremail=${currentUser?.useremail}`, feedback)
       .then((res) => {
-        if (res.data.success) {
+        console.log(res.data);
+        if (res.data.result.acknowledged) {
+          console.log(res.data);
           setshow(false)
           reset()
           setsubmitingFeedbcak(false)
@@ -102,7 +105,10 @@ const Order = () => {
               </div>
             </div>
             {
-              item?.status === 'deliverd' && <button onClick={() => setshow(true)} className='block right-3 top-3 absolute bg-orange-400 font-semibold hover:bg-orange-700 hover:text-white transition-all p-0 py-1 px-1 text-3xl'><MdFeedback /></button>
+              item?.status === 'deliverd' && <button onClick={() => {
+                setid(item?.myOrder[0]?._id)
+                setshow(true)
+              }} className='block right-3 top-3 absolute bg-orange-400 font-semibold hover:bg-orange-700 hover:text-white transition-all p-0 py-1 px-1 text-3xl'><MdFeedback /></button>
             }
 
           </div>)
@@ -127,7 +133,7 @@ const Order = () => {
               />
             </div>
             {errors.deadline && <p className="text-red-500 ">deadline is required*</p>}
-            <textarea className="block outline-none border-b-2 w-full mx-auto p-2 h-20 resize-none pl-0 border-b-gray-400 my-2" type="number" placeholder="description" {...register("description", { required: true })} />
+            <textarea className="block outline-none border-b-2 w-full mx-auto p-2 h-20 resize-none pl-0 border-b-gray-400 my-2" type="text" placeholder="description" {...register("description", { required: true })} />
             {errors.description && <p className="text-red-500 ">description is required*</p>}
             <button className="w-full bg-red-600 cursor-pointer mt-4 rounded-lg text-white py-2 hover:bg-red-900 transition-all" type="submit">{submitingFeedbcak ? <span className="loading loading-bars loading-sm"></span> : 'send feedback'}</button>
           </form>

@@ -24,6 +24,8 @@ const AddProduct = () => {
         data.addedBy = currentUser?.useremail
         data.price = parseInt(data.price)
         data.quantity = parseInt(data.quantity)
+        data.review = parseInt(0)
+        data.rating = parseInt(0)
         setloading(true)
         const image = {
             image: data.productImage[0]
