@@ -17,6 +17,8 @@ import UpdateProducts from "../DashboardLayout/UpdateProducts/UpdateProducts";
 import AddProduct from "../DashboardLayout/AddProduct/AddProduct";
 import AllOrder from "../DashboardLayout/AllOrder/AllOrder";
 import UserRoute from "../PrivetRoutes/UserRoute";
+import AdminRoute from "../PrivetRoutes/AdminRoute";
+import LoggedinUser from "../PrivetRoutes/LoggedinUser";
 const Routes = () => {
   const axiosrequest = useAxiosrequest()
   const router = createBrowserRouter([
@@ -40,7 +42,7 @@ const Routes = () => {
         },
         {
           path: "/signup",
-          element: <SignUp></SignUp>,
+          element: <LoggedinUser><SignUp></SignUp></LoggedinUser>,
         },
         {
           path: "/payment/:id",
@@ -49,7 +51,7 @@ const Routes = () => {
         },
         {
           path: "/login",
-          element: <Login></Login>,
+          element: <LoggedinUser>  <Login></Login></LoggedinUser>,
         },
       ]
     },
@@ -67,28 +69,28 @@ const Routes = () => {
         },
         {
           path: 'users',
-          element: <User />
+          element: <AdminRoute><User /></AdminRoute>
         },
         {
           path: 'profile',
-          element:<UserRoute> <Profile /></UserRoute>
+          element: <UserRoute> <Profile /></UserRoute>
         },
         {
           path: 'allproduct',
-          element: <AllProducts />
+          element: <AdminRoute> <AllProducts /></AdminRoute>
         },
         {
           path: 'allorders',
-          element: <AllOrder />
+          element: <AdminRoute> <AllOrder /></AdminRoute>
         },
         {
           path: 'updateproduct/:id',
-          element: <UpdateProducts />,
+          element: <AdminRoute> <UpdateProducts /></AdminRoute>,
           loader: ({ params }) => axiosrequest.get(`/productDetails?id=${params.id}`)
         },
         {
           path: 'addclass',
-          element: <AddProduct />,
+          element: <AdminRoute> <AddProduct /></AdminRoute>,
         },
       ]
     }
