@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { MdDelete, MdModeEditOutline } from 'react-icons/md'
 import { TbListDetails, TbTruckDelivery } from 'react-icons/tb'
 import useAxiosSecure from '../../Hooks/useAxiosSecure'
+import Swal from 'sweetalert2'
 
 const AllOrder = () => {
   const { currentUser } = useContext(FrankStoreData)
@@ -12,18 +13,55 @@ const AllOrder = () => {
   console.log(OrderData);
   const axiosequre = useAxiosSecure()
   const deleteitem = (id) => {
-    axiosequre.delete(`/order?useremail=${currentUser?.useremail}&id=${id}`)
-      .then((res) => {
-        refetch()
-        console.log(res.data)
-      })
+    Swal.fire({
+      title: "Are you sure?",
+      text: "wanst to delete this order !",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosequre.delete(`/order?useremail=${currentUser?.useremail}&id=${id}`)
+          .then((res) => {
+            refetch()
+            Swal.fire({
+              title: "Deleted!",
+              text: "order has been deleted.",
+              icon: "success"
+            });
+          })
+
+      }
+    });
+
   }
   const deliveritem = (id) => {
-    axiosequre.patch(`/order?useremail=${currentUser?.useremail}&id=${id}`, { status: 'deliverd' })
-      .then((res) => {
-        refetch()
-        console.log(res.data)
-      })
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You wants to deliverd this product",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "No",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosequre.patch(`/order?useremail=${currentUser?.useremail}&id=${id}`, { status: 'deliverd' })
+          .then((res) => {
+            refetch()
+            Swal.fire({
+              title: "Deliverd!",
+              text: "product has been Deliverd.",
+              icon: "success"
+            });
+          })
+
+      }
+    });
+
   }
   return (
     <>

@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { FrankStoreData } from "../../Context/FrankStoreContext"
 import { Link, NavLink, Outlet } from "react-router-dom"
 import { CgProfile } from "react-icons/cg";
@@ -7,7 +7,7 @@ import { FaHome, FaShoppingBag } from "react-icons/fa";
 import { FaCartFlatbedSuitcase } from "react-icons/fa6";
 import { GiShop } from "react-icons/gi";
 import { HiUserGroup } from "react-icons/hi2";
-import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { MdMenu, MdOutlineProductionQuantityLimits } from "react-icons/md";
 const Dashboard = () => {
     const { currentUser, logout } = useContext(FrankStoreData)
     const userMenu = <>
@@ -72,13 +72,16 @@ const Dashboard = () => {
             </li>
         </ul>
     </>
-    // console.log(currentUser)
-
+    const [showmobilemenu, setshomobilemenu] = useState(false)
+    const showmenu = () => {
+        setshomobilemenu(!showmobilemenu)
+    }
     return (
-        <div className='text-left grid grid-cols-4 container mx-auto'>
-            <div className="h-full p-3 space-y-2 w-60 dark:bg-gray-900 dark:text-gray-100">
+        <div className='text-left lg:grid lg:grid-cols-4 container mx-auto relative'>
+            <MdMenu onClick={showmenu} className={`lg:hidden absolute right-5 top-8 text-3xl transition-all ${showmobilemenu ? '-rotate-90' : 'rotate-0'}`} />
+            <div className={`lg:h-full p-3 ${showmobilemenu ? 'h-[500px] w-auto' : 'h-[0px] w-0'} transition-all overflow-hidden space-y-2 w-60 dark:bg-gray-900 dark:text-gray-100`}>
                 <div className="flex items-center p-2 space-x-4">
-                    <img src={currentUser?.profileImage} alt="" className="w-12 h-12 rounded-full dark:bg-gray-500" />
+                    <img src={currentUser?.profileImage} alt="" className={`w-12 h-12 rounded-full ${showmobilemenu ? 'w-12 h-12' : 'h-[0px] w-0'} dark:bg-gray-500`} />
                     <div>
                         <h2 className="text-lg font-semibold">{currentUser?.username}</h2>
                         <span className="flex items-center space-x-1">
@@ -86,7 +89,7 @@ const Dashboard = () => {
                         </span>
                     </div>
                 </div>
-                <div className="divide-y dark:divide-gray-700">
+                <div id="dashboarMenu" className="divide-y dark:divide-gray-700">
                     {
                         (currentUser?.role === 'owner' || currentUser?.role === 'admin') ? adminMenu : userMenu
                     }

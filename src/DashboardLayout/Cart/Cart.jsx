@@ -5,23 +5,42 @@ import { Link } from 'react-router-dom'
 import { MdOutlineLocalShipping } from 'react-icons/md'
 import { TbListDetails } from "react-icons/tb";
 import useAxiosSecure from '../../Hooks/useAxiosSecure'
+import Swal from 'sweetalert2'
 const Cart = () => {
     const { currentUser } = useContext(FrankStoreData)
     const [isPending, cartData, refetch] = useGetCartData(currentUser?.useremail)
-const axiosequre = useAxiosSecure()
+    const axiosequre = useAxiosSecure()
     const removefromCart = (_id) => {
-        // Cart
-        axiosequre.delete(`/Cart?useremail=${currentUser?.useremail}&id=${_id}`)
-        .then((res)=>{
-            console.log(res.data)
-        })
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You wants to remove it from cart",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, remove"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosequre.delete(`/Cart?useremail=${currentUser?.useremail}&id=${_id}`)
+                    .then((res) => {
+                        refetch()
+                        Swal.fire({
+                            title: "removed!",
+                            text: "product file has been removed.",
+                            icon: "success"
+                        });
+                    })
+
+            }
+        });
+
     }
     return (
         <>
             <h3 className='text-center text-3xl font-semibold pt-6'>cart items</h3>
             <p>total item {cartData.length}</p>
             <div className='md:grid lg:grid-cols-2 gap-2 '>
-            {
+                {
                     cartData?.map(item => <div className="flex flex-col py-6 shadow-2xl p-2 sm:flex-row sm:justify-between">
 
                         <div className="flex w-full space-x-2 sm:space-x-4">
@@ -37,7 +56,7 @@ const axiosequre = useAxiosSecure()
                                     </div>
                                 </div>
                                 <div className="flex text-sm divide-x">
-                                    <button onClick={()=>removefromCart(item?.cartData[0]?._id)} type="button" className="flex items-center px-2 py-1 pl-0 space-x-1  hover:text-red-600 active:scale-95">
+                                    <button onClick={() => removefromCart(item?.cartData[0]?._id)} type="button" className="flex items-center px-2 py-1 pl-0 space-x-1  hover:text-red-600 active:scale-95">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 h-4 fill-current">
                                             <path d="M96,472a23.82,23.82,0,0,0,23.579,24H392.421A23.82,23.82,0,0,0,416,472V152H96Zm32-288H384V464H128Z"></path>
                                             <rect width="32" height="200" x="168" y="216"></rect>
@@ -47,13 +66,13 @@ const axiosequre = useAxiosSecure()
                                         </svg>
                                         <span>Remove</span>
                                     </button>
-                                    <Link  to={`/payment/${item?.cartData[0]?._id}`}>
+                                    <Link to={`/payment/${item?.cartData[0]?._id}`}>
                                         <button type="button" className="flex items-center px-2 py-1 space-x-1 hover:text-green-600 active:scale-95">
                                             <MdOutlineLocalShipping className="text-xl" />
                                             <span className="uppercase">Order</span>
                                         </button>
                                     </Link>
-                                    <Link  to={`/productDeails/${item?.cartData[0]?._id}`}>
+                                    <Link to={`/productDeails/${item?.cartData[0]?._id}`}>
                                         <button type="button" className="flex items-center px-2 py-1 space-x-1 hover:text-green-600 active:scale-95">
                                             <TbListDetails className="text-xl" />
                                             <span className="uppercase">details</span>

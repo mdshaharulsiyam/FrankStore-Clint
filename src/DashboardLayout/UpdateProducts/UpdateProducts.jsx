@@ -49,6 +49,7 @@ const UpdateProducts = () => {
                 });
             }
         }
+        data.quantity = parseInt(data.quantity)
         axiossecure.patch(`/products?useremail=${currentUser?.useremail}&id=${_id}`, data)
             .then((res) => {
                 if (res.data.acknowledged) {

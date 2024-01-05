@@ -10,7 +10,7 @@ const Profile = () => {
             }
             {
                 <div className='container mx-auto p-4 pl-20 pt-20 flex flex-wrap justify-start gap-4'>
-                    <div className="flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-900 dark:text-gray-100">
+                    <div className="flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-900 dark:text-gray-100 mx-auto">
                         <img src={currentUser?.profileImage} alt="" className="w-32 h-32 mx-auto rounded-full dark:bg-gray-500 aspect-square" />
                         <div className="space-y-4 text-center divide-y dark:divide-gray-700">
                             <div className="my-2 space-y-1">

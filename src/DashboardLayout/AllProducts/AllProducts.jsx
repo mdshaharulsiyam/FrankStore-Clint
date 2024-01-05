@@ -141,7 +141,7 @@ const AllProducts = () => {
                                 <td>{item?.addedBy}</td>
                                 <td>${item?.price}</td>
                                 <td>{item?.totalSold}</td>
-                                <td>{item?.quantity == 0 ? 'out of stock' : item?.quantity}</td>
+                                <td className={`${item?.quantity == 0 ?"text-red-400 font-bold":'text-black'} d`}>{item?.quantity == 0 ? 'out of stock' : item?.quantity}</td>
                                 <td className='text-3xl flex justify-start items-center gap-2 cursor-pointer'>
                                     <Link to={`/productDeails/${item?._id}`}>
                                         <TbListDetails className='hover:text-blue-500' />
