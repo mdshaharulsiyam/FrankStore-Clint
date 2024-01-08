@@ -33,7 +33,7 @@ const SignUp = () => {
                 .then((userCredential) => {
                     const user = userCredential.user;
                     updateProfile(userCredential.user, {
-                        displayName: data.name, photoURL: res.data.data.display_url
+                        displayName: data.name, photoURL: md
                     }).then(() => {
                         const userData = {
                             profileImage: res.data.data.display_url,

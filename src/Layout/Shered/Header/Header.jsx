@@ -37,7 +37,7 @@ const Header = () => {
                     <div className="sm:hidden block">
                         <div className="flex justify-end items-center gap-2">
                             {
-                                location?.pathname !== "/products" && <form>
+                                location?.pathname !== "/products" && <form onSubmit={search}>
                                     <div className="relative z-10 flex space-x-3 bg-white border rounded-lg shadow-lg shadow-gray-100 dark:bg-slate-900 dark:border-gray-700 dark:shadow-gray-900/[.2]">
                                         <div className="flex-[1_0_0%]">
                                             <label for="hs-search-article-1" className="block text-sm text-gray-700 font-medium dark:text-white"><span className="sr-only">What are you looking for?</span></label>
@@ -50,8 +50,8 @@ const Header = () => {
                             {
                                 currentUser?.useremail && <Link><img className="w-10 h-10 rounded-full" src={currentUser?.profileImage} alt="" /></Link>
                             }
-                            <button className="active:scale-90 text-3xl hover:bg-blue-600 hover:bg-opacity-25 bg-transparent p-2 relative"><IoCartOutline />
-                                <span className="absolute -top-2 bg-red-500 rounded-full text-sm p-1 text-white right-0">0</span>
+                            <button onClick={showCartItem} className="active:scale-90 text-3xl hover:bg-blue-600 hover:bg-opacity-25 bg-transparent p-2 relative"><IoCartOutline />
+                                <span className="absolute -top-2 bg-red-500 rounded-full text-sm p-1 text-white right-0">{cartData.length}</span>
                             </button>
                         </div>
                     </div>
