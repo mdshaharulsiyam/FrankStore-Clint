@@ -7,15 +7,15 @@ import useAxiosrequest from "../../Hooks/useAxiosrequest"
 import Swal from 'sweetalert2'
 import { FrankStoreData } from "../../Context/FrankStoreContext"
 const SignUp = () => {
-    const [loading,setloading]=useState(false)
-    const { createNewUser,loginwithGoogle } = useContext(FrankStoreData)
+    const [loading, setloading] = useState(false)
+    const { createNewUser, loginwithGoogle } = useContext(FrankStoreData)
     const [showPasswords, setshowPasswords] = useState(false)
     const axiosrequest = useAxiosrequest()
     const { register, handleSubmit, formState: { errors }, } = useForm()
     const showPassword = () => {
         setshowPasswords(!showPasswords)
     }
-    const navigate =useNavigate()
+    const navigate = useNavigate()
     const imageapikey = import.meta.env.VITE_IMAGE_API_KEY;
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${imageapikey}`;
     const onSubmit = async (data) => {
@@ -33,14 +33,14 @@ const SignUp = () => {
                 .then((userCredential) => {
                     const user = userCredential.user;
                     updateProfile(userCredential.user, {
-                        displayName: data.name, photoURL: md
+                        displayName: data.name, photoURL: res.data.data.display_url
                     }).then(() => {
                         const userData = {
                             profileImage: res.data.data.display_url,
                             username: data.name,
                             useremail: data.email,
                             role: "user",
-                            emailVerified : false
+                            emailVerified: false
                         }
                         // console.log(userData)
                         axiosrequest.post('/users', userData)
@@ -90,6 +90,9 @@ const SignUp = () => {
     }
     return (
         <div>
+            {
+                loading && <span className="loading loading-ring  absolute w-28 z-20 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"></span>
+            }
             {/* <!-- Hero --> */}
             <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 {/* <!-- Grid --> */}

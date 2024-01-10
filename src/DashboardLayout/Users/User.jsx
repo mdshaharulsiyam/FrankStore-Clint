@@ -95,7 +95,7 @@ const User = () => {
     }
     return (
         <>
-            <h3 className='text-3xl font-semibold text-center uppercase pt-10'>{filter} {totaluser}</h3>
+            <h3 className='text-3xl font-semibold text-center uppercase pt-10'>{filter} {users.length}</h3>
             <div>
                 <select onInput={(e) => {
                     setfilter(e.target.value);

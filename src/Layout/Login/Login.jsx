@@ -7,43 +7,105 @@ import Swal from "sweetalert2"
 const Login = () => {
     const navigate = useNavigate()
     const [loading, setloading] = useState(false)
-    const {loginuser,loginwithGoogle}=useContext(FrankStoreData)
+    const { loginuser, loginwithGoogle } = useContext(FrankStoreData)
     const [showPasswords, setshowPasswords] = useState(false)
     const { register, handleSubmit, formState: { errors }, } = useForm()
     const showPassword = () => {
         setshowPasswords(!showPasswords)
     }
+    const loggindemouser = () => {
+        setloading(true)
+        loginuser('user11@gmail.com', 'user11@gmail.coM')
+            .then((userCredential) => {
+                setloading(false)
+                const user = userCredential.user;
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `logged in user succesfuly`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            })
+            .catch((error) => {
+                setloading(false)
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: `${error.message}`,
+                    footer: 'unable to log in user'
+                });
+            });
+    }
+    const loggindemoadmin = () => {
+        setloading(true)
+        loginuser('admin11@gmail.com', 'admin11@gmail.coM')
+            .then((userCredential) => {
+                setloading(false)
+                const user = userCredential.user;
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `logged in user succesfuly`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            })
+            .catch((error) => {
+                setloading(false)
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: `${error.message}`,
+                    footer: 'unable to log in user'
+                });
+            });
+    }
     const onSubmit = (data) => {
         setloading(true)
-        loginuser(data.email,data.password)
-        .then((userCredential) => {
-            setloading(false)
-            const user = userCredential.user;
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: `logged in user succesfuly`,
-                showConfirmButton: false,
-                timer: 1500
+        loginuser(data.email, data.password)
+            .then((userCredential) => {
+                setloading(false)
+                const user = userCredential.user;
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `logged in user succesfuly`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            })
+            .catch((error) => {
+                setloading(false)
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: `${error.message}`,
+                    footer: 'unable to log in user'
+                });
             });
-            
-          })
-          .catch((error) => {
-            setloading(false)
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: `${error.message}`,
-                footer: 'unable to log in user'
-            });
-          });
     }
     return (
         <div>
             {/* <!-- Hero --> */}
+            {
+                loading && <span className="loading loading-ring  absolute w-28 z-20 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"></span>
+            }
+
             <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <span className="text-center block">
+                    <button onClick={loggindemouser} className="hover:scale-105 active:scale-90 bg-red-500 text-white hover:text-black hover:bg-red-300 transition-all m-2  inline-block">demo user</button>
+                    <button onClick={loggindemoadmin} className="hover:scale-105 active:scale-90  bg-green-500 text-white hover:text-black hover:bg-green-300 transition-all m-2  inline-block">demo admin</button>
+                </span>
                 {/* <!-- Grid --> */}
                 <div class="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
                     <div class="relative ms-4">

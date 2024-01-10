@@ -81,7 +81,7 @@ const Dashboard = () => {
             <MdMenu onClick={showmenu} className={`lg:hidden absolute right-5 top-8 text-3xl transition-all ${showmobilemenu ? '-rotate-90' : 'rotate-0'}`} />
             <div className={`lg:h-full p-3 ${showmobilemenu ? 'h-[500px] w-auto' : 'h-[0px] w-0'} transition-all overflow-hidden space-y-2 w-60 dark:bg-gray-900 dark:text-gray-100`}>
                 <div className="flex items-center p-2 space-x-4">
-                    <img src={currentUser?.profileImage} alt="" className={`w-12 h-12 rounded-full ${showmobilemenu ? 'w-12 h-12' : 'h-[0px] w-0'} dark:bg-gray-500`} />
+                    <img src={currentUser?.profileImage} alt="" className={`md:w-12 md:h-12 rounded-full ${showmobilemenu ? 'w-12 h-12' : 'h-[0px] w-0'} dark:bg-gray-500`} />
                     <div>
                         <h2 className="text-lg font-semibold">{currentUser?.username}</h2>
                         <span className="flex items-center space-x-1">
