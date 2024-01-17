@@ -111,7 +111,7 @@ const AllProducts = () => {
                         }
 
                     </span>
-                    <span className='flex justify-start items-center border-2 border-black'>
+                    <span className='flex justify-start items-center border-2 border-black '>
                         <input onKeyUp={(e) => {
 
                             setSearchValue(e.target.value)

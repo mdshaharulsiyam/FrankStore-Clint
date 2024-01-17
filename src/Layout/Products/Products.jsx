@@ -9,17 +9,17 @@ import { useLoaderData } from 'react-router-dom'
 import useGetallProducts from '../../Hooks/useGetallProducts'
 import { FrankStoreData } from '../../Context/FrankStoreContext'
 const Products = () => {
-    const {seacrhValue, setSearchValue,categoryFilter, setCategoryFilter}=useContext(FrankStoreData)
+    const { seacrhValue, setSearchValue, categoryFilter, setCategoryFilter } = useContext(FrankStoreData)
     const axiosrequest = useAxiosrequest()
     const [loading, setloading] = useState(true)
     const [categoryData, setCategoryData] = useState([])
-    const [totaldata,settotaldata]=useState(0)
-    useEffect(()=>{
+    const [totaldata, settotaldata] = useState(0)
+    useEffect(() => {
         axiosrequest.get(`/productCount?seacrhValue=${seacrhValue}&categoryFilter=${categoryFilter}`)
-        .then((res)=>{
-            settotaldata(res.data)
-        })
-    },[seacrhValue,categoryFilter])
+            .then((res) => {
+                settotaldata(res.data)
+            })
+    }, [seacrhValue, categoryFilter])
     // const { data } = useLoaderData()
     // products filter states 
     const [sortBy, setSortby] = useState('none')
@@ -30,13 +30,13 @@ const Products = () => {
     const totalPages = Math.ceil(totaldata / itemPerPage)
     const pages = [...Array(totalPages).keys()];
     useEffect(() => {
-        
+
         axiosrequest.get('/categores').then((data) => setCategoryData(data.data))
     }, [])
     const [isPending, allproducts, refetch] = useGetallProducts(categoryFilter, sortBy, sortValue, seacrhValue, pageNumber, itemPerPage)
 
     const handelCategory = (category) => {
-        
+
         setCategoryFilter(category)
     }
     return (
@@ -53,37 +53,44 @@ const Products = () => {
                 <CategorySlider categoryData={categoryData} slidesPerView={2} spaceBetween={10} handelCategory={handelCategory} />
             </div>
             <div className='lg:flex justify-start items-end gap-6'>
-                <SectionHeading topheadin='Products' heading={`${categoryFilter}`}></SectionHeading>
+                <div className='flex justify-center items-center sm:hidden w-auto mx-auto border-black'>
+                    <input onKeyUp={(e) => {
+
+                        setSearchValue(e.target.value)
+                    }} type="text" placeholder="Search" className="outline-none active:outline-none active:border-none p-2 w-full max-w-xs" />
+                    <button className='rounded-none hover:text-blue-600 active:scale-95'><FaSearch /></button>
+                </div>
                 <span className='flex justify-between grow pb-[6px]'>
                     <span>
                         <select onInput={(e) => {
-                            
+
                             setSortby(e.target.value)
-                            }} className=" rounded py-1 px-3 border-2 border-black">
+                        }} className=" rounded p-2 px-3 mb-2 border-2 mr-2 border-black">
                             <option value={'none'} selected>none</option>
                             <option value={'price'}>price</option>
                             <option value={'mostsale'}>most sale</option>
                         </select>
                         {
                             (sortBy === 'price') && <select onInput={(e) => {
-                                
+
                                 setSortValue(e.target.value)
-                                }} className=" rounded py-1 px-3 border-2 border-black ml-2">
+                            }} className=" rounded py-2 px-3 border-2 border-black ">
                                 <option value={'LTH'} >low to high</option>
                                 <option value={'HTL'} selected>high to low</option>
                             </select>
                         }
 
                     </span>
-                    <span className='flex justify-start items-center border-2 border-black'>
+                    <span className='sm:flex justify-start items-center border-2 hidden border-black'>
                         <input onKeyUp={(e) => {
-                            
+
                             setSearchValue(e.target.value)
-                            }} type="text" placeholder="Search" className="outline-none active:outline-none active:border-none p-2 w-full max-w-xs" />
+                        }} type="text" placeholder="Search" className="outline-none active:outline-none active:border-none p-2 w-full max-w-xs" />
                         <button className='rounded-none hover:text-blue-600 active:scale-95'><FaSearch /></button>
                     </span>
                 </span>
             </div>
+            <SectionHeading topheadin='Products' heading={`${categoryFilter}`}></SectionHeading>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-10 py-3 relative">
                 {
                     allproducts.map(item => <ProductCard key={item._id} item={item} />)
@@ -99,7 +106,7 @@ const Products = () => {
                     </button>
                     {
                         pages.map(item => <button onClick={() => {
-                            
+
                             setPageNumber(item)
                         }} key={item} type="button" title="Page 1" className="inline-flex items-center hover:text-blue-600 justify-center w-8 h-8 text-sm font-semibold border rounded shadow-md dark:bg-gray-900 dark:text-violet-400 dark:border-violet-400">{item + 1}</button>)
                     }
@@ -108,7 +115,7 @@ const Products = () => {
                     </button>
                 </div>
                 <select onChange={(e) => {
-                    
+
                     setItemPerPage(e.target.value)
                     setPageNumber(0)
                 }} className=" rounded py-1 px-3 border-2 border-black">

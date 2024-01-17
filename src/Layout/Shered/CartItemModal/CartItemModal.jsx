@@ -19,18 +19,18 @@ const CartItemModal = ({ setCartItemShow, cartData, refetch }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosequre.delete(`/Cart?useremail=${currentUser?.useremail}&id=${_id}`)
-                .then((res) => {
-                    refetch()
-                    Swal.fire({
-                        title: "removed!",
-                        text: "Your product has been removed.",
-                        icon: "success"
-                    });
-                })
-                
+                    .then((res) => {
+                        refetch()
+                        Swal.fire({
+                            title: "removed!",
+                            text: "Your product has been removed.",
+                            icon: "success"
+                        });
+                    })
+
             }
         });
-      
+
     }
     return (
         <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 bg-gray-900 text-gray-100 absolute z-10 right-0 top-[73px] max-h-[450px] overflow-y-auto rounded-lg">
@@ -82,14 +82,13 @@ const CartItemModal = ({ setCartItemShow, cartData, refetch }) => {
             </div>
             <div className="flex justify-end space-x-4">
                 <button onClick={() => setCartItemShow(false)} type="button" className="px-6 py-2 border rounded-md dark:border-violet-400 hover:scale-105 hover:text-blue-600">Back
-                    <span className="sr-only sm:not-sr-only"> to shop</span>
                 </button>
-                <Link to={'/products'} onClick={() => setCartItemShow(false)} type="button" className="px-6 py-2 border rounded-md dark:border-violet-400 hover:scale-105 hover:text-blue-600">
-                    <span className="sr-only sm:not-sr-only">All products</span>
+                <Link to={'/products'} onClick={() => setCartItemShow(false)} type="button" className="px-6 py-2 hidden md:block border rounded-md dark:border-violet-400 hover:scale-105 hover:text-blue-600">
+                    products
                 </Link>
                 <Link to={'/dashboard/order'}>
                     <button type="button" className="px-6 py-2 border rounded-md dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400 hover:scale-105 hover:text-blue-600">
-                        <span className="sr-only sm:not-sr-only">my Orders</span>
+                        Orders
                     </button>
                 </Link>
 
