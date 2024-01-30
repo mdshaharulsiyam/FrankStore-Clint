@@ -12,7 +12,7 @@ const Dashboard = () => {
     const { currentUser, logout } = useContext(FrankStoreData)
     const userMenu = <>
         <ul className="pt-2 pb-4 space-y-1 text-sm">
-            <li className="dark:bg-gray-800 dark:text-gray-50">
+            <li className=" ">
                 <NavLink to={'profile'} className="flex items-center p-2 space-x-3 rounded-md">
                     <CgProfile className="text-2xl" />
                     <span>Profile</span>
@@ -34,7 +34,7 @@ const Dashboard = () => {
         </ul></>
     const adminMenu = <>
         <ul className="pt-2 pb-4 space-y-1 text-sm">
-            <li className="dark:bg-gray-800 dark:text-gray-50">
+            <li className=" ">
                 <NavLink to={'profile'} className="flex items-center p-2 space-x-3 rounded-md">
                     <CgProfile className="text-2xl" />
                     <span>Profile</span>
@@ -79,17 +79,17 @@ const Dashboard = () => {
     return (
         <div className='text-left lg:grid lg:grid-cols-4 container mx-auto relative'>
             <MdMenu onClick={showmenu} className={`lg:hidden absolute right-5 top-8 text-3xl transition-all ${showmobilemenu ? '-rotate-90' : 'rotate-0'}`} />
-            <div className={`lg:h-full p-3 ${showmobilemenu ? 'h-[500px] w-auto' : 'h-[0px] w-0'} transition-all overflow-hidden space-y-2 w-60 dark:bg-gray-900 dark:text-gray-100`}>
+            <div className={`lg:min-h-screen p-3 ${showmobilemenu ? 'h-[500px] w-auto' : 'h-[0px] w-0'} transition-all overflow-hidden space-y-2 w-60 lg:border-r`}>
                 <div className="flex items-center p-2 space-x-4">
-                    <img src={currentUser?.profileImage} alt="" className={`md:w-12 md:h-12 rounded-full ${showmobilemenu ? 'w-12 h-12' : 'h-[0px] w-0'} dark:bg-gray-500`} />
+                    <img src={currentUser?.profileImage} alt="" className={`md:w-12 md:h-12 rounded-full ${showmobilemenu ? 'w-12 h-12' : 'h-[0px] w-0'} `} />
                     <div>
                         <h2 className="text-lg font-semibold">{currentUser?.username}</h2>
                         <span className="flex items-center space-x-1">
-                            <p rel="noopener noreferrer" className="text-xs hover:underline dark:text-gray-400">{currentUser?.role}</p> <span className="h-2 w-2 rounded-full bg-green-600"></span>
+                            <p rel="noopener noreferrer" className="text-xs hover:underline ">{currentUser?.role}</p> <span className="h-2 w-2 rounded-full bg-green-600"></span>
                         </span>
                     </div>
                 </div>
-                <div id="dashboarMenu" className="divide-y dark:divide-gray-700">
+                <div id="dashboarMenu" className="divide-y ">
                     {
                         (currentUser?.role === 'owner' || currentUser?.role === 'admin') ? adminMenu : userMenu
                     }

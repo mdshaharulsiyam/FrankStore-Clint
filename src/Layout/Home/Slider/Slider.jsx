@@ -17,7 +17,7 @@ const Slider = () => {
         <h2 className="text-xl uppercase font-semibold max-w-3xl">Step into a World of Possibilities with FrankStore  Your Trusted Online Marketplace!</h2 >
         <p className="pt-6 max-w-3xl">Welcome to FrankStore, your go-to destination for curated essentials and stylish finds. Explore a world of quality products, unbeatable prices, and a seamless shopping experience. Discover the joy of smart and savvy shopping at FrankStore – where every purchase tells a story of quality and convenience</p>
         <Link to={'/products'}>
-        <button className="text-black mt-3 flex justify-start items-center uppercase gap-2"><FaBagShopping className="-mt-1" /> shop now</button>
+        <button className="text-black mt-3 flex justify-start items-center uppercase gap-2 bg-gray-300"><FaBagShopping className="-mt-1" /> shop now</button>
         </Link>
       </div>
       {/* <Carousel dragging={true} speed={1000} autoplay={true} autoplayInterval={2000} wrapAround={true} >

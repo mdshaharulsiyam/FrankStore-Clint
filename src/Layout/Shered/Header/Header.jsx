@@ -18,7 +18,7 @@ const Header = () => {
             currentUser?.useremail && <NavLink to={'/dashboard/profile'} className={`text-black menus`}>Dashboard</NavLink>
         }
         {
-            currentUser?.useremail ? <button onClick={logout} className="active:scale-90">Logout</button> : <NavLink to={'/login'} className={`text-black menus`}>Sign In</NavLink>
+            currentUser?.useremail ? <button onClick={logout} className="active:scale-90 bg-gray-300 ">Logout</button> : <NavLink to={'/login'} className={`text-black menus`}>Sign In</NavLink>
         }
     </>
     const showCartItem = () => {
@@ -30,18 +30,18 @@ const Header = () => {
         setSearchValue(e.target.searchvalue.value)
     }
     return (
-        <header className="flex relative flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 sm:py-0 dark:bg-gray-800 dark:border-gray-700">
+        <header className="flex relative flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 sm:py-0 dark:border-gray-700">
             <nav className="relative lg:container w-full mx-auto px-4 py-3 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8" aria-label="Global">
                 <div className="flex items-center justify-between">
-                    <Link to={'/'} className="flex-none font-bold text-2xl text-black dark:text-white hidden lg:block" aria-label="Brand">FrankStore</Link>
+                    <Link to={'/'} className="flex-none font-bold text-2xl text-black hidden lg:block" aria-label="Brand">FrankStore</Link>
                     <div className="sm:hidden block">
                         <div className="flex justify-end items-center gap-2">
                             {
                                 location?.pathname !== "/products" && <form onSubmit={search}>
-                                    <div className="relative z-10 flex space-x-3 bg-white border rounded-lg shadow-lg shadow-gray-100 dark:bg-slate-900 dark:border-gray-700 dark:shadow-gray-900/[.2]">
+                                    <div className="relative z-10 flex space-x-3 bg-white border rounded-lg shadow-lg shadow-gray-100  dark:border-gray-700 dark:shadow-gray-900/[.2]">
                                         <div className="flex-[1_0_0%]">
                                             <label for="hs-search-article-1" className="block text-sm text-gray-700 font-medium dark:text-white"><span className="sr-only">What are you looking for?</span></label>
-                                            <input type="text" name="hs-search-article-1" id="hs-search-article-1" className="py-2.5 px-4 block w-full border-transparent rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600" placeholder="Search" />
+                                            <input type="text" name="hs-search-article-1" id="hs-search-article-1" className="py-2.5 px-4 block w-full border-transparent rounded-lg focus:border-blue-500 focus:ring-blue-500  dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600" placeholder="Search" />
                                         </div>
                                         <button className="absolute top-[50%] font-extrabold right-1 active:scale-90 hover:bg-blue-600 hover:bg-opacity-25 -translate-y-[50%] bg-transparent p-2 "><IoSearchOutline /></button>
                                     </div>
@@ -72,10 +72,10 @@ const Header = () => {
                     <div className="flex justify-end items-center gap-2">
                         {
                             location?.pathname !== "/products" && <form onSubmit={search}>
-                                <div className="relative z-10 flex space-x-3 bg-white border rounded-lg shadow-lg shadow-gray-100 dark:bg-slate-900 dark:border-gray-700 dark:shadow-gray-900/[.2]">
+                                <div className="relative z-10 flex space-x-3 bg-white border rounded-lg shadow-lg shadow-gray-100  dark:border-gray-700 dark:shadow-gray-900/[.2]">
                                     <div className="flex-[1_0_0%]">
                                         <label for="hs-search-article-1" className="block text-sm text-gray-700 font-medium dark:text-white"><span className="sr-only">What are you looking for?</span></label>
-                                        <input type="text" name="searchvalue" id="hs-search-article-1" className="py-2.5 px-4 block w-full border-transparent rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600" placeholder="Search" />
+                                        <input type="text" name="searchvalue" id="hs-search-article-1" className="py-2.5 px-4 block w-full border-transparent rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600" placeholder="Search" />
                                     </div>
                                     <button className="absolute top-[50%] font-extrabold right-1 active:scale-90 hover:bg-blue-600 hover:bg-opacity-25 -translate-y-[50%] bg-transparent p-2 "><IoSearchOutline /></button>
                                 </div>

@@ -8,9 +8,12 @@
 }
 #productCart:hover #productimageParent {
     position: absolute;
-    top: 50px;
-    left: 50px;
+    /* top: 50px;
+    left: 50px; */
+    top: 10%;
+    left: 10%;
     width: 80px;
+    height: 80px;
     border-radius: 100%;
 }
 #productCart:hover::after{
