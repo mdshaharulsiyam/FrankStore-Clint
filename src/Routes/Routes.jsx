@@ -46,7 +46,7 @@ const Routes = () => {
         },
         {
           path: "/payment/:id",
-          element: <Payment></Payment>,
+          element: <UserRoute> <Payment></Payment></UserRoute>,
           loader: ({ params }) => axiosrequest.get(`/productDetails?id=${params.id}`)
         },
         {
