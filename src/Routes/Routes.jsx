@@ -19,6 +19,7 @@ import AllOrder from "../DashboardLayout/AllOrder/AllOrder";
 import UserRoute from "../PrivetRoutes/UserRoute";
 import AdminRoute from "../PrivetRoutes/AdminRoute";
 import LoggedinUser from "../PrivetRoutes/LoggedinUser";
+import { Statistic } from "../DashboardLayout/Statistic/Statistic";
 const Routes = () => {
   const axiosrequest = useAxiosrequest()
   const router = createBrowserRouter([
@@ -82,6 +83,10 @@ const Routes = () => {
         {
           path: 'allorders',
           element: <AdminRoute> <AllOrder /></AdminRoute>
+        },
+        {
+          path: 'dashboard',
+          element: <AdminRoute> <Statistic /></AdminRoute>
         },
         {
           path: 'updateproduct/:id',
