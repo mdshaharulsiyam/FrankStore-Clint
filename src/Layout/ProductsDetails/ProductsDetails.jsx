@@ -43,7 +43,7 @@ const ProductsDetails = () => {
         setloading(true)
         if (!currentUser?.useremail) {
           setloading(false)
-          Swal.fire({
+         return Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "please login first",
