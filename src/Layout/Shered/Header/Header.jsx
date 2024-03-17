@@ -15,7 +15,7 @@ const Header = () => {
         <NavLink to={'/'} className={`text-black menus`}>Home</NavLink>
         <NavLink to={'/products'} className={`text-black menus`}>products</NavLink>
         {
-            currentUser?.useremail && <NavLink to={'/dashboard/profile'} className={`text-black menus`}>Dashboard</NavLink>
+            currentUser?.useremail && <NavLink to={'/dashboard/dashboard'} className={`text-black menus`}>Dashboard</NavLink>
         }
         {
             currentUser?.useremail ? <button onClick={logout} className="active:scale-90 bg-gray-300 ">Logout</button> : <NavLink to={'/login'} className={`text-black menus`}>Sign In</NavLink>

@@ -86,7 +86,7 @@ const Routes = () => {
         },
         {
           path: 'dashboard',
-          element: <AdminRoute> <Statistic /></AdminRoute>
+          element: <UserRoute> <Statistic /></UserRoute>
         },
         {
           path: 'updateproduct/:id',

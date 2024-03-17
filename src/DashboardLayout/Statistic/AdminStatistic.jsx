@@ -75,7 +75,7 @@ export const AdminStatistic = ({ data }) => {
           </span>
           <span className='w-full h-full uppercase flex justify-center items-center flex-col font-bold bg-[#FF3EA5] p-4 my-2 rounded-md text-white'>
             <p>total profit</p>
-            ${data?.[2]?.[0]?.totalAmount}
+            $ {data?.[2]?.[0]?.totalAmount}
           </span>
           <span className='w-full h-full uppercase flex justify-center items-center flex-col font-bold bg-[#FF7ED4] p-4 my-2 rounded-md text-white'>
             <p>total user</p>
@@ -84,7 +84,6 @@ export const AdminStatistic = ({ data }) => {
         </div> : 'please wait'
       }
       <p className='font-bold text-xl uppercase pt-10'>total stock products parcentance</p>
-     <div className='w-20 overscroll-hidden'>
      <PieChart width={580} height={300}>
         <Pie
           activeIndex={activeIndex}
@@ -99,7 +98,6 @@ export const AdminStatistic = ({ data }) => {
           onMouseEnter={onPieEnter}
         />
       </PieChart>
-     </div>
     </div>
   )
 }

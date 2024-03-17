@@ -13,6 +13,12 @@ const Dashboard = () => {
     const { currentUser, logout } = useContext(FrankStoreData)
     const userMenu = <>
         <ul className="pt-2 pb-4 space-y-1 text-sm">
+        <li className=" ">
+                <NavLink to={'dashboard'} className="flex items-center p-2 space-x-3 rounded-md">
+                    <MdDashboard className="text-2xl" />
+                    <span>Dashboard</span>
+                </NavLink>
+            </li>
             <li className=" ">
                 <NavLink to={'profile'} className="flex items-center p-2 space-x-3 rounded-md">
                     <CgProfile className="text-2xl" />
