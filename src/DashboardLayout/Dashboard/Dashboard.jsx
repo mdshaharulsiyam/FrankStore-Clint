@@ -11,9 +11,10 @@ import { MdMenu, MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { MdDashboard } from "react-icons/md";
 const Dashboard = () => {
     const { currentUser, logout } = useContext(FrankStoreData)
+    const [adminmenu,setadminmenu]=useState(true)
     const userMenu = <>
         <ul className="pt-2 pb-4 space-y-1 text-sm">
-        <li className=" ">
+            <li className=" ">
                 <NavLink to={'dashboard'} className="flex items-center p-2 space-x-3 rounded-md">
                     <MdDashboard className="text-2xl" />
                     <span>Dashboard</span>
@@ -47,12 +48,6 @@ const Dashboard = () => {
                     <span>Dashboard</span>
                 </NavLink>
             </li>
-            <li className=" ">
-                <NavLink to={'profile'} className="flex items-center p-2 space-x-3 rounded-md">
-                    <CgProfile className="text-2xl" />
-                    <span>Profile</span>
-                </NavLink>
-            </li>
             <li>
                 <NavLink to={'allproduct'} className="flex items-center p-2 space-x-3 rounded-md">
                     <GiShop className="text-2xl" />
@@ -63,18 +58,6 @@ const Dashboard = () => {
                 <NavLink to={'allorders'} className="flex items-center p-2 space-x-3 rounded-md">
                     <FaCartFlatbedSuitcase className="text-2xl" />
                     <span>all Orders</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink to={'order'} className="flex items-center p-2 space-x-3 rounded-md">
-                    <FaShoppingBag className="text-2xl" />
-                    <span>my Orders</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink to={'cart'} className="flex items-center p-2 space-x-3 rounded-md">
-                    <IoCartOutline className="text-2xl" />
-                    <span>Cart</span>
                 </NavLink>
             </li>
             <li>
@@ -103,8 +86,18 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <div id="dashboarMenu" className="divide-y ">
+                {
+                        (currentUser?.role === 'owner' || currentUser?.role === 'admin') && <div className="divide-y py-3 flex justify-center items-center gap-2">
+                            <button className={`${adminmenu?'':'bg-orange-500 text-white'}`} onClick={()=>setadminmenu(false)}>user</button> 
+                            <button className={`${adminmenu?'bg-orange-500 text-white':''}`} onClick={()=>setadminmenu(true)}>admin</button>
+                        </div>
+                    }
                     {
-                        (currentUser?.role === 'owner' || currentUser?.role === 'admin') ? adminMenu : userMenu
+                        (currentUser?.role === 'owner' || currentUser?.role === 'admin') ? <>
+                        {
+                            adminmenu ? adminMenu : userMenu
+                        }
+                        </> : userMenu
                     }
                     <ul className="pt-4 pb-2 space-y-1 text-sm">
                         <li>
