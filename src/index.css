@@ -35,10 +35,37 @@ button:hover {
 #dashboarMenu .active {
  color: blue;
 }
-/* button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.bg-banner1 {
+  background: linear-gradient(
+      to right,
+      rgb(0 0 0 / 84%),
+      rgb(175 12 12 / 25%)
+    ),
+    url("https://i.ibb.co/GWh9K0H/images.jpg");
+  background-size: cover;
+}
+/* .bg-banner1:hover {
+  background-size: 120%;
 } */
+.bg-banner2 {
+  background: linear-gradient(
+      to right,
+      rgb(0 0 0 / 84%),
+      rgb(175 180 22 / 35%)
+    ),
+    url("https://i.ibb.co/mRGfZZZ/macbook-pro-2021-16.webp");
+  background-size: cover;
+}
+
+.bg-banner3 {
+  background: linear-gradient(
+      to right,
+      rgb(0 0 0 / 84%),
+      rgb(185 185 185 / 35%)
+    ),
+    url("https://i.ibb.co/FbvMyHj/apple-watch-ultra-2-7.webp");
+  background-size: cover;
+}
 
 @media (prefers-color-scheme: light) {
   :root {

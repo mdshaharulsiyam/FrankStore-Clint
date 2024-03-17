@@ -2,8 +2,8 @@ import { FaBagShopping } from "react-icons/fa6"
 import { Link } from 'react-router-dom'
 const Discover = () => {
     return (
-        <>
-               <div className="pt-[25%] sm:pt-[20%] md:pt-[15%] lg:pt-[10%] w-full grid grid-cols-1 md:grid-cols-5  ">
+        <div className="container mx-auto">
+               <div className=" py-10 pt-16 w-full grid grid-cols-1 md:grid-cols-5  ">
         <h1 className="text-xl font-clashBold md:col-span-3 sm:text-2xl md:text-3xl lg:text-4xl">
         Step into a World of Possibilities with FrankStore  Your Trusted Online Marketplace!
         </h1>
@@ -16,7 +16,7 @@ const Discover = () => {
         </Link>
         </div>
       </div>
-        </>
+        </div>
     )
 }
 
