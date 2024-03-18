@@ -58,7 +58,7 @@ const Products = () => {
 
                         setSearchValue(e.target.value)
                     }} type="text" placeholder="Search" className="outline-none active:outline-none active:border-none p-2 w-full max-w-xs" />
-                    <button className='rounded-none hover:text-blue-600 active:scale-95'><FaSearch /></button>
+                    <button className='rounded-none hover:text-blue-600 active:scale-95 bg-white'><FaSearch /></button>
                 </div>
                 <span className='flex justify-between grow pb-[6px]'>
                     <span>
@@ -86,7 +86,7 @@ const Products = () => {
 
                             setSearchValue(e.target.value)
                         }} type="text" placeholder="Search" className="outline-none active:outline-none active:border-none p-2 w-full max-w-xs" />
-                        <button className='rounded-none hover:text-blue-600 active:scale-95'><FaSearch /></button>
+                        <button className='rounded-none hover:text-blue-600 active:scale-95 bg-white'><FaSearch /></button>
                     </span>
                 </span>
             </div>

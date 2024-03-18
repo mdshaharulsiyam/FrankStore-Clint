@@ -80,11 +80,11 @@ const ProductCard = ({ item }) => {
                     <p className=' py-1 text-white z-10 sm:block'>brand : {brand}</p>
                     <span className='flex justify-center items-center gap-2'>
                         <Link to={`/productDeails/${_id}`}>
-                            <button>
+                            <button className='bg-white'>
                                 <FaEye />
                             </button>
                         </Link>
-                        <button onClick={() => addtoCart()}>
+                        <button className='bg-white' onClick={() => addtoCart()}>
                             {
                                 loading ? <span className="loading loading-dots loading-xs"></span> : <FaCartPlus />
                             }

@@ -88,8 +88,8 @@ const Dashboard = () => {
                 <div id="dashboarMenu" className="divide-y ">
                 {
                         (currentUser?.role === 'owner' || currentUser?.role === 'admin') && <div className="divide-y py-3 flex justify-center items-center gap-2">
-                            <button className={`${adminmenu?'':'bg-orange-500 text-white'}`} onClick={()=>setadminmenu(false)}>user</button> 
-                            <button className={`${adminmenu?'bg-orange-500 text-white':''}`} onClick={()=>setadminmenu(true)}>admin</button>
+                            <button className={`${adminmenu?'bg-orange-200':'bg-orange-500 text-white'}`} onClick={()=>setadminmenu(false)}>user</button> 
+                            <button className={`${adminmenu?'bg-orange-500 text-white':'bg-orange-200'}`} onClick={()=>setadminmenu(true)}>admin</button>
                         </div>
                     }
                     {
