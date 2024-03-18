@@ -62,7 +62,7 @@ const ProductCard = ({ item }) => {
 
     }
     return (
-        <div id='productCart' className='p-2 2xl:h-80 lg:h-64 md:h-[290px] sm:h-80 bg-black bg-opacity-5 relative rounded-lg cursor-pointer hover:scale-105 transition-all overflow-hidden'>
+        <div id='productCart' className='p-2 2xl:h-80 lg:h-64 md:h-[290px] sm:h-72 h-48 bg-black bg-opacity-5 relative rounded-lg cursor-pointer hover:scale-105 transition-all overflow-hidden'>
             {
                 quantity <= 0 && <div className='absolute w-full h-full bg-black bg-opacity-60 z-50 left-0 top-0 flex justify-center items-center flex-col'>
                     <img className='w-20' src='https://i.ibb.co/F4zV77y/3756312.png' alt="" />
